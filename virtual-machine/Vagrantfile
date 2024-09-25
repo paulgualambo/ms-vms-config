@@ -1,0 +1,89 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Every Vagrant development environment requires a box. You can search for
+# boxes at https://atlas.hashicorp.com/search.
+
+require 'json'
+
+vms_config = JSON.parse(ENV['vms_config'])
+
+# Imprimir vms_config en la consola
+#puts "vms_config in vagrant:"
+#puts JSON.pretty_generate(vms_config)
+
+Vagrant.configure("2") do |config|
+
+  vms_config['vms'].each do |vm|
+
+    config.vm.define vm['hostname'] do |subconfig|
+      subconfig.vm.box = vm['box_image']
+      subconfig.vm.hostname = vm['hostname']
+      subconfig.vm.network :private_network, ip: vm['ip']
+
+      # Configuración específica para VirtualBox
+      if vm['provider'] == "virtualbox"
+        subconfig.vm.provider "virtualbox" do |vb|
+          vb.name = "#{vm['hostname']}_#{vm['ip']}"
+          vb.memory = vm['memory']
+          vb.cpus = vm['cpus']
+        end
+      elsif vm['provider'] == "hyperv"
+        subconfig.vm.provider "hyperv" do |hv|
+          hv.memory = vm['memory']
+          hv.cpus = vm['cpus']
+        end
+      end
+
+
+      configure_vm_script(subconfig, vm['script'])
+      
+      # if vm['provider'] == "hyperv"
+      #   subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'], type: "smb", smb_username: vm['username'], smb_password: ENV['SMB_PASSWORD']
+      # else
+      #   subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'], create: true , owner: vm['username'], group: vm['username']
+      # end
+
+      if !vm['upfirsttime']
+        subconfig.vm.synced_folder vm['shared_folder_host'], vm['shared_folder_vm'], create: true , owner: vm['username'], group: vm['username']
+      end
+
+    end    
+  end
+end
+
+
+def configure_vm_script(config, script)
+
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "Copiando y ejecutando el script...install_basic"
+    mkdir -p scripts_to_provision
+    cp /vagrant/scripts_to_provision/install_basic.sh /home/vagrant/scripts_to_provision/
+    ls /home/vagrant/scripts_to_provision
+    chmod +x /home/vagrant/scripts_to_provision/install_basic.sh
+    /home/vagrant/scripts_to_provision/install_basic.sh
+  SHELL
+
+  # script = script.downcase
+  # unless script.to_s.strip.empty?
+  #   config.vm.provision "shell", inline: <<-SHELL
+  #     echo "Copiando y ejecutando el script...install_basic"
+  #     mkdir -p scripts_to_provision
+  #     # cp /vagrant/scripts_to_provision/#{script} /home/vagrant/scripts_to_provision/
+  #     cp /vagrant/scripts_to_provision/install_basic.sh /home/vagrant/scripts_to_provision/
+  #     ls /home/vagrant/scripts_to_provision
+  #     chmod +x /home/vagrant/scripts_to_provision/#{script}
+  #     chmod +x /home/vagrant/scripts_to_provision/install_basic.sh
+  #     /home/vagrant/scripts_to_provision/install_basic.sh
+  #   SHELL
+  # else
+  #   config.vm.provision "shell", inline: <<-SHELL
+  #     echo "Copiando y ejecutando el script..."
+  #     mkdir -p scripts_to_provision
+  #     cp /vagrant/scripts_to_provision/install.sh /home/vagrant/scripts_to_provision
+  #     chmod +x /home/vagrant/scripts_to_provision/install.sh
+  #     /home/vagrant/scripts_to_provision/install.sh
+  #   SHELL
+  # end
+
+end

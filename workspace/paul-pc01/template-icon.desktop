@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=W002
+Comment=Levanta la maquina virtuales para environment
+Exec=/home/paul/Documents/projects/infra-tools-getstart/workspace/paul-pc01/mv_run.sh environment
+Icon=utilities-terminal
+Terminal=true
+Type=Application
+StartupNotify=true

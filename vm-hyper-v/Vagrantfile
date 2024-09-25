@@ -1,0 +1,24 @@
+# Vagrantfile
+Vagrant.configure("2") do |config|
+# Configura la caja (box) de Ubuntu
+config.vm.box = "bento/ubuntu-20.04" # Puedes cambiar a otra versión si lo prefieres
+
+# Deshabilitar la sincronización de carpetas NFS
+config.vm.synced_folder ".", "/vagrant", disabled: true
+
+# Configura el proveedor Hyper-V
+config.vm.provider "hyperv" do |h|
+    h.vmname = "UbuntuVM"  # Nombre de la máquina virtual
+    h.memory = 2048        # Memoria en MB
+    h.cpus = 2             # Número de CPUs
+end
+
+# Configura la red
+config.vm.network "public_network", bridge: "Ethernet"  # Configura la red según tu entorno
+
+# Provisionamiento
+config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    apt-get upgrade -y
+SHELL
+end

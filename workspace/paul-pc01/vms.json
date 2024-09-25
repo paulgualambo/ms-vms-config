@@ -1,0 +1,154 @@
+{
+    "sandbox": [
+        {
+            "hostname": "paul-pc01-sandbox-app",
+            "ip": "192.168.56.10",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-sandbox-app",
+            "shared_folder_vm": "/backup",
+            "script": "app.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        },
+        {
+            "hostname": "paul-pc01-sandbox-infra",
+            "ip": "192.168.56.12",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-sandbox-app",
+            "shared_folder_vm": "/backup",
+            "script": "infra.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        },
+        {
+            "hostname": "paul-pc01-sandbox-deploy",
+            "ip": "192.168.56.14",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-sandbox-infra",
+            "shared_folder_vm": "/backup",
+            "script": "deploy.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        }      
+    ],
+    "study": [
+        {
+            "hostname": "paul-pc01-study-app",
+            "ip": "192.168.56.20",
+            "box_image": "bento/ubuntu-20.04",
+            "username": "paul",
+            "shared_folder_host":  "/home/paul/environment/paul-pc01-study-app",
+            "shared_folder_vm": "/backup",
+            "script": "app.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        },
+        {
+            "hostname": "paul-pc01-study-infra",
+            "ip": "192.168.56.22",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-study-infra",
+            "shared_folder_vm": "/backup",
+            "script": "infra.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        },
+        {
+            "hostname": "paul-pc01-study-deploy",
+            "ip": "192.168.56.24",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-study-deploy",
+            "shared_folder_vm": "/backup",
+            "script": "deploy.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":false
+        }      
+    ],
+    "w001": [
+        {
+            "hostname": "paul-pc01-w001-app",
+            "ip": "192.168.56.30",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host":  "/home/paul/environment/paul-pc01-w001-app",
+            "shared_folder_vm": "/backup",
+            "script": "app.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        },
+        {
+            "hostname": "paul-pc01-w001-infra",
+            "ip": "192.168.56.32",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-w001-infra",
+            "shared_folder_vm": "/backup",
+            "script": "infra.sh",
+            "memory": "1024",
+            "cpus": "1",
+            "active":false
+        },
+        {
+            "hostname": "paul-pc01-w001-deploy",
+            "ip": "192.168.56.34",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-w001-deploy",
+            "shared_folder_vm": "/backup",
+            "script": "deploy.sh",
+            "memory": "1024",
+            "cpus": "1",
+            "active":false
+        }      
+    ],
+    "w002": [
+        {
+            "hostname": "paul-pc01-w002-app",
+            "ip": "192.168.56.40",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host":  "/home/paul/environment/paul-pc01-w002-app",
+            "shared_folder_vm": "/backup",
+            "script": "app.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        },
+        {
+            "hostname": "paul-pc01-w002-infra",
+            "ip": "192.168.56.42",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-w002-infra",
+            "shared_folder_vm": "/backup",
+            "script": "infra.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        },
+        {
+            "hostname": "paul-pc01-w002-deploy",
+            "ip": "192.168.56.44",
+            "box_image": "bento/ubuntu-24.04",
+            "username": "paul",
+            "shared_folder_host": "/home/paul/environment/paul-pc01-w002-deploy",
+            "shared_folder_vm": "/backup",
+            "script": "deploy.sh",
+            "memory": "2048",
+            "cpus": "2",
+            "active":true
+        }      
+    ]    
+}

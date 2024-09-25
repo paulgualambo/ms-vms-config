@@ -1,0 +1,24 @@
+{
+    "local": {
+        "me": {
+            "HOSTNAME_BASE": "paul-laptop01-win11",
+            "HOSTNAME_NEW": "paul-laptop01-win11-wsl-ubuntu",
+            "USERNAME": "paul",
+            "EMAIL": "paul.gualambo@gmail.com",
+            "PASSWORD": "P@ul1984",
+            "DISTRO": "DEBIAN",
+            "FULLNAME": "Paul R. Gualambo Giraldo"
+        }
+    },    
+    "w001": {
+        "app": {
+            "HOSTNAME_BASE": "paul-laptop01-win11",
+            "HOSTNAME_NEW": "paul-laptop01-win11-wsl-w001-app",
+            "USERNAME": "paul",
+            "EMAIL": "paul.gualambo@gmail.com",
+            "PASSWORD": "P@ul1984",
+            "DISTRO": "DEBIAN",
+            "FULLNAME": "Paul R. Gualambo Giraldo"
+        }
+    }
+}

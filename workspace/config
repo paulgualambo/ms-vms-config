@@ -1,0 +1,59 @@
+Host SANDBOX-APP-192.168.56.10
+    HostName 192.168.56.10
+    User paul
+    ForwardAgent yes
+
+Host SANDBOX-INFRA-192.168.56.12
+    HostName 192.168.56.12
+    User paul
+    ForwardAgent yes
+
+Host SANDBOX-DEPLOY-192.168.1.14
+    HostName 192.168.1.14
+    User paul
+    ForwardAgent yes
+
+Host STUDY-APP-192.168.56.20
+    HostName 192.168.56.20
+    User paul
+    ForwardAgent yes
+
+Host STUDY-INFRA-192.168.56.22
+    HostName 192.168.56.22
+    User paul
+    ForwardAgent yes
+
+Host STUDY-DEPLOY-192.168.56.24
+    HostName 192.168.56.20
+    User paul
+    ForwardAgent yes    
+
+Host W001-APP-192.168.56.30
+    HostName 192.168.56.30
+    User paul
+    ForwardAgent yes
+
+Host W001-INFRA-192.168.56.32
+  HostName 192.168.56.32
+  User paul
+  ForwardAgent yes
+
+Host W001-DEPLOY-192.168.1.34
+  HostName 192.168.1.34
+  User paul
+  ForwardAgent yes
+
+Host W002-APP-192.168.56.40
+  HostName 192.168.56.40
+  User paul
+  ForwardAgent yes
+
+Host W002-INFRA-192.168.56.42
+  HostName 192.168.56.42
+  User paul
+  ForwardAgent yes
+
+Host W002-DEPLOY-192.168.56.44
+  HostName 192.168.56.44
+  User paul
+  ForwardAgent yes
