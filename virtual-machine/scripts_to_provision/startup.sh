@@ -1,20 +1,11 @@
 #se ejecuta con el perfil del programador
 USERNAME="paul"
 EMAIL=paul.gualambo@gmail.com
-FULLNAME='paul romualdo gualambo giraldo'
-
-#git Global
-git config --global user.email "$EMAIL"
-git config --global user.name "$FULLNAME"
+FULLNAME='Paul R. Gualambo Giraldo'
 
 # Ejecutar el segundo script para instalar software de desarrollo
 sudo wget -O - https://raw.githubusercontent.com/paulgualambo/infrastructure-tools/main/linux/config_install_software_dev.sh | bash -s -- "$USERNAME"
 
-#Add .bashrc
-echo -e '\n' >> ~/.bashrc
-echo 'eval "$(ssh-agent -s)"' >> ~/.bashrc
-echo 'ssh-add ~/.ssh/id_ed25519' >> ~/.bashrc
-echo -e '\n' >> ~/.bashrc
 
 #mejora del git 
 echo '# Alias de Git' >> ~/.bashrc
@@ -53,7 +44,7 @@ fi' > ~/config_vm/git-choose-editor.sh
 chmod +x ~/config_vm/git-choose-editor.sh
 
 # Configurar Git para usar el script como editor
-git config --global core.editor "~/choose-editor.sh"
+git config --global core.editor "~/config_vm/choose-editor.sh"
 
 echo '' >> ~/.bashrc
 
