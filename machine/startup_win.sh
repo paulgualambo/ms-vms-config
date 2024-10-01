@@ -5,8 +5,9 @@ list disk
 select disk 1
 list partition
 
-
+sudo mkdir -p /home/paul/workspaces
 wsl --mount \\.\PHYSICALDRIVE1 --partition 5 --type ext4
+ln -s /mnt/wsl/PHYSICALDRIVE1p5/[directory] /home/paul/workspaces
 sudo chown -R paul:paul /mnt/wsl/PHYSICALDRIVE1p5
 
 sudo nano /etc/wsl.conf

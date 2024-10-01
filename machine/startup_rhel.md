@@ -47,3 +47,19 @@ source ~/.bashrc
 ```
 
 ## Config git and install nodejs
+
+
+## Install Virtual Box y Vagrant
+
+```sh
+sudo dnf install -y @development-tools
+sudo dnf install -y kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras
+sudo dnf config-manager --add-repo=https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+sudo dnf install -y VirtualBox-7.0
+sudo /sbin/vboxconfig
+VBoxManage --version
+
+sudo dnf install -y vagrant
+vagrant --version
+
+```
