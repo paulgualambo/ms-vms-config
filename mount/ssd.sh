@@ -2,9 +2,14 @@
 
 ```sh
 sudo mkdir -p /mnt/paul-disk01-data_shared_ext4
+
 sudo mkdir -p /mnt/paul-laptop01-data_shared_ext4
 sudo mkdir -p /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin
 sudo mkdir -p /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001
+
+sudo mkdir -p /mnt/paul-pc01-data_shared_ext4
+sudo mkdir -p /mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin
+sudo mkdir -p /mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001
 
 ############### LINUX ###############
 #abri sudo nano /etc/fstab
@@ -45,6 +50,27 @@ sudo rsync -avzh --exclude='**/node_modules/**' --exclude='**/coverage/' --progr
 /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001/ \
 /mnt/paul-disk01-data_shared_ext4/workspaces/w001/
 
+## ms-vms-configure-admin
+## disk01 -> pc01
+sudo rsync -avzh --exclude='**/node_modules/**' --exclude='**/coverage/' --progress --update \
+/mnt/paul-disk01-data_shared_ext4/workspaces/ms-vms-configure-admin/ \
+/mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin/
+
+sudo rsync -avzh --exclude='**/node_modules/**' --exclude='**/coverage/' --progress --update \
+/mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin/ \
+/mnt/paul-disk01-data_shared_ext4/workspaces/ms-vms-configure-admin/
+
+## workspaces/w001
+## disk01 -> pc01
+sudo rsync -avzh --exclude='**/node_modules/**' --exclude='**/coverage/' --progress --update \
+/mnt/paul-disk01-data_shared_ext4/workspaces/w001/ \
+/mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001/
+
+sudo rsync -avzh --exclude='**/node_modules/**' --exclude='**/coverage/' --progress --update \
+/mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001/ \
+/mnt/paul-disk01-data_shared_ext4/workspaces/w001/
+
+
 ##Eliminando los ln
 sudo rm /home/paul/ms-vms-configure-admin
 sudo rm /home/paul/workspace-w001
@@ -54,8 +80,14 @@ sudo rm /home/paul/data
 ## machine and virtual machine
 sudo ln -s /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin /home/paul/
 ## sourcecode
-sudo ln -s /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/workspaces/w001 /home/paul/workspace-w001
+sudo ln -s /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001 /home/paul/workspace-w001
 ### data
 sudo ln -s /mnt/paul-laptop01-data_shared_ext4/ /home/paul/data
 
+
+sudo ln -s /mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin /home/paul/
+## sourcecode
+sudo ln -s /mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001 /home/paul/workspace-w001
+### data
+sudo ln -s /mnt/paul-pc01-data_shared_ext4/ /home/paul/data
 ```
