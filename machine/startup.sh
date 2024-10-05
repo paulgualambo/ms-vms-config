@@ -59,6 +59,7 @@ set_hostname() {
 
 ## Keys
 configure_ssh_keys() {
+    sudo cp /mnt/paul-disk01-data_shared_ext4/workspaces/keys/paul-* /home/paul/.ssh/
     sudo chown paul:paul ~/.ssh/paul-*
     sudo chmod 600 ~/.ssh/paul-*
 }
