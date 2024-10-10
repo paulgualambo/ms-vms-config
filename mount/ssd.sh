@@ -2,13 +2,13 @@
 
 ```sh
 #laptop-01
-sudo mkdir -p /mnt/paul-laptop01-data_shared_ext4
-sudo mkdir -p /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin
-sudo mkdir -p /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001
+sudo mkdir -p /mnt/pr2g-laptop01-data_shared_ext4
+sudo mkdir -p /mnt/pr2g-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin
+sudo mkdir -p /mnt/pr2g-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001
 #pc-01
-sudo mkdir -p /mnt/paul-pc01-data_shared_ext4
-sudo mkdir -p /mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin
-sudo mkdir -p /mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001
+sudo mkdir -p /mnt/pr2g-pc01-data_shared_ext4
+sudo mkdir -p /mnt/pr2g-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin
+sudo mkdir -p /mnt/pr2g-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001
 
 ############### LINUX ###############
 #abri sudo nano /etc/fstab
@@ -89,7 +89,7 @@ sudo ln -s /mnt/paul-laptop01-data_shared_ext4/paul-disk01-data_shared_ext4/work
 sudo ln -s /mnt/paul-laptop01-data_shared_ext4/ /home/paul/data
 
 ### pc-01
-sudo ln -s /mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin /home/paul/
+sudo ln -s /mnt/paul-pc01-data-shared-ext4/paul-disk01-data_shared_ext4/ms-vms-configure-admin /home/paul/
 ## sourcecode
 sudo ln -s /mnt/paul-pc01-data_shared_ext4/paul-disk01-data_shared_ext4/workspace-w001 /home/paul/
 ### data

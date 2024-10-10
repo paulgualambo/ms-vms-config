@@ -2,7 +2,7 @@ Indice
 Configuración inicial del sistema
 Actualización del sistema
 Instalación de controladores gráficos
-Configuración de los tres monitores
+Configuración de monitores
 Instalación de herramientas de desarrollo
 Instalación de .NET SDK
 Instalación de Node.js y TypeScript
@@ -37,6 +37,7 @@ Tener el sistema actualizado
 ```
 
 ### Instalación de controladores gráficos
+
 ```sh
     ## Ubuntu, debian, Kali
     ubuntu-drivers devices
@@ -51,5 +52,41 @@ Tener el sistema actualizado
 
 ```
 
+### Software base instalación
+
+- gparted
+- chrome
+- vscode
+- postman
+
+### Personalización del workspace
+
+- gnome-tweaks
 
 ### Configuración de los tres monitores
+
+
+### Automount de folders 
+
+```sh
+#Creacion de la carpeta
+sudo mkdir -p /mnt/pr2g-pc01-data-shared-ext4
+sudo mkdir -p /mnt/{prefix}-{machine}-{use}-data
+sudo mkdir -p /mnt/pr2g-pc01-study-data
+
+##Automontado
+
+lsblk -f
+sudo blkid
+
+sudo nano /etc/fstab
+UUID=7b031077-54a4-4a53-b696-439fb326c520 /mnt/pr2g-pc01-data-shared-ext4 ext4 defaults 0 2
+
+#UUID=7b031077-54a4-4a53-b696-439fb326c520 /mnt/{prefix}-{machine}-{use}-data ext4 defaults 0 2
+sudo mount -a
+systemctl daemon-reload
+#df -h | grep /mnt/{prefix}-{machine}-{use}-data
+df -h | grep /mnt/pr2g-pc01-data-shared-ext4 
+
+## example
+```

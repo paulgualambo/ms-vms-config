@@ -16,13 +16,11 @@ detect_package_manager(){
     fi
 }
 
-# Asignar el gestor de paquetes a una variable
-PKG_MANAGER=$(detect_package_manager)
-
-# STARTUP_RHEL - Generalizado para las distribuciones soportadas
 
 ## UPDATE PACKAGE
 update_packages() {
+    PKG_MANAGER=$(detect_package_manager)
+
     case $PKG_MANAGER in
         "apt")
             sudo apt update -y
@@ -97,11 +95,13 @@ distro_family() {
     fi
 }
 
-DISTRO=$(distro_family)
-DISTRO=${DISTRO^^}
+
 
 ## SETTINGS - Cambiar el hostname
 set_hostname() {
+
+    #mv ~/.config/google-chrome ~/.config/google-chrome-backup
+
     NEW_HOSTNAME=${1:-"pr2g-pc01-personal-ubuntu"}
     sudo hostnamectl set-hostname $NEW_HOSTNAME
     echo $NEW_HOSTNAME | sudo tee /etc/hostname
@@ -110,6 +110,9 @@ set_hostname() {
 }
 
 create_user(){
+    DISTRO=$(distro_family)
+    DISTRO=${DISTRO^^}
+
     # Definir variables
     _USERNAME=${1:-"paul"}
     _DISTRO=$DISTRO
@@ -121,75 +124,85 @@ create_user(){
     echo "DISTRO FAMILY: $_DISTRO"
 
     # Ejecutar el primer script para crear un usuario
-    sudo wget -O - https://raw.githubusercontent.com/paulgualambo/env-tools/main/linux/config_create_user.sh | bash -s -- "$_DISTRO" "$_USERNAME" "$_EMAIL" "$_PASSWORD"
+    sudo wget -O - --no-verbose https://raw.githubusercontent.com/paulgualambo/env-tools/main/linux/config_create_user.sh | bash -s -- "$_DISTRO" "$_USERNAME" "$_EMAIL" "$_PASSWORD"
 }
 
 ## Keys
-configure_ssh_keys() {
-    sudo cp /mnt/paul-disk01-data_shared_ext4/workspaces/keys/paul-* /home/paul/.ssh/
-    sudo chown paul:paul ~/.ssh/paul-*
-    sudo chmod 600 ~/.ssh/paul-*
-}
+# configure_ssh_keys() {
+#     sudo cp /mnt/paul-disk01-data_shared_ext4/workspaces/keys/paul-* /home/paul/.ssh/
+#     sudo chown paul:paul ~/.ssh/paul-*
+#     sudo chmod 600 ~/.ssh/paul-*
+# }
 
 ## Install basic dev tools
 install_dev_tools() {
     USERNAME="paul"
-    sudo wget -O - https://raw.githubusercontent.com/paulgualambo/infrastructure-tools/main/linux/config_install_software_dev.sh | bash -s -- "$USERNAME"
+    sudo wget -O - --no-verbose https://raw.githubusercontent.com/paulgualambo/infrastructure-tools/main/linux/config_install_software_dev.sh | bash -s -- "$USERNAME"
     source ~/.bashrc
 }
 
 ## Config Git y NodeJS (se puede añadir la lógica aquí según sea necesario)
 
 ## Install VirtualBox y Vagrant
-install_virtualbox_vagrant() {
-    case $PKG_MANAGER in
-        "apt")
-            sudo apt install -y build-essential linux-headers-$(uname -r)
-            sudo apt-add-repository "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
-            wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-            sudo apt update
-            sudo apt install -y virtualbox-7.0
-            ;;
-        "dnf")
-            sudo dnf install -y @development-tools kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras
-            sudo dnf config-manager --add-repo=https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
-            sudo dnf install -y VirtualBox-7.0
-            ;;
-        "pacman")
-            sudo pacman -S --noconfirm virtualbox virtualbox-host-modules-arch
-            ;;
-        "zypper")
-            sudo zypper install -y @development-tools kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras
-            sudo zypper config-manager --add-repo=https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
-            sudo zypper install -y VirtualBox-7.0
-            ;;
-        *)
-            echo "Package manager not supported."
-            exit 1
-            ;;
-    esac
+# install_virtualbox_vagrant() {
+#     case $PKG_MANAGER in
+#         "apt")
+#             sudo apt install -y build-essential linux-headers-$(uname -r)
+#             sudo apt-add-repository "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
+#             wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+#             sudo apt update
+#             sudo apt install -y virtualbox-7.0
+#             ;;
+#         "dnf")
+#             sudo dnf install -y @development-tools kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras
+#             sudo dnf config-manager --add-repo=https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+#             sudo dnf install -y VirtualBox-7.0
+#             ;;
+#         "pacman")
+#             sudo pacman -S --noconfirm virtualbox virtualbox-host-modules-arch
+#             ;;
+#         "zypper")
+#             sudo zypper install -y @development-tools kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras
+#             sudo zypper config-manager --add-repo=https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+#             sudo zypper install -y VirtualBox-7.0
+#             ;;
+#         *)
+#             echo "Package manager not supported."
+#             exit 1
+#             ;;
+#     esac
 
-    sudo /sbin/vboxconfig
-    VBoxManage --version
-    sudo $PKG_MANAGER install -y vagrant
-    vagrant --version
+#     sudo /sbin/vboxconfig
+#     VBoxManage --version
+#     sudo $PKG_MANAGER install -y vagrant
+#     vagrant --version
 
-    sudo chown -R  paul:paul /mnt/paul-pc01-data_shared_ext4/virtualbox/
-    sudo mkdir -p /mnt/paul-pc01-data_shared_ext4/virtualbox/vms
-    sudo ln -s /mnt/paul-pc01-data_shared_ext4/virtualbox/vms "/home/paul/VirtualBox VMs"
-}
+#     sudo chown -R  paul:paul /mnt/paul-pc01-data_shared_ext4/virtualbox/
+#     sudo mkdir -p /mnt/paul-pc01-data_shared_ext4/virtualbox/vms
+#     sudo ln -s /mnt/paul-pc01-data_shared_ext4/virtualbox/vms "/home/paul/VirtualBox VMs"
+# }
 
-# Llamar a las funciones según lo necesario
-# Montar disco duro local
-# Montar disco externo
-sudo mkdir -p /mnt/pr2g-disk01
-sudo chown paul:paul -R /mnt/pr2g-disk01
-sudo mount /dev/sdb5 /mnt/pr2g-disk01
+# # Llamar a las funciones según lo necesario
+# # Montar disco duro local
+# # Montar disco externo
+# sudo mkdir -p /mnt/pr2g-disk01
+# sudo chown paul:paul -R /mnt/pr2g-disk01
+# sudo mount /dev/sdb5 /mnt/pr2g-disk01
 
 #install_software
 #set_hostname "pr2g-pc01-personal-ubuntu"
-create_user "paul"
+# create_user "paul"
 # update_packages
 # configure_ssh_keys
 # install_dev_tools
 #install_virtualbox_vagrant
+
+# Verifica si se pasa una función como argumento
+if declare -f "$1" > /dev/null; then
+    # Llama a la función con los argumentos proporcionados
+    "$@"
+else
+    echo "Función no encontrada: $1"
+    echo "Las funciones disponibles son: create_user set_hostname"
+    exit 1
+fi
