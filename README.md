@@ -6,7 +6,7 @@ prefix
 paul-
 
 Machine
-pc01, laptop01, mac01
+pc01, laptop01, mac01, disk01
 
 s0
 windows 11   win11
@@ -16,15 +16,16 @@ linux
     fedora   fedora
     redhat   rhle
     linux-mint  lmint
+    open suse   opensuse
 
 macOS
     Sonoma   msnma  
 
 --type virtualization
-vgt, wsl, hyv
+vtb, wsl, hyv
 
 --group
-w001, w002, study, sandbox
+w000, w001, w002, study, sandbox
 
 --host
 apps services 
@@ -35,27 +36,12 @@ paul-laptop01-win11
 paul-laptop01-win11-wsl-sandbox-app
 paul-laptop01-win11-wsl-study-app
 paul-laptop01-win11-wsl-sandbox-app
-paul-laptop01-lkl
-paul-laptop01-lkl-vgt-sandbox-app
-paul-laptop01-lfd-vgt-sandbox-app
+
 
 study --> certificaciones
 sandbox --> levantar aplicaciones temporales
 w000 --> aplicaciones personales
 wxxx
-
-#Linux
-Hacer upgrade a todo
-Install git
-sudo apt install git -y
-Install chrome
-Install vscode
-
-
-Register .ssh
-Ejecutar script
-    startup_rhel_rpm.sh
-    startup_debian_deb.sh
 
 ```sh
 git config user.email paul.gualambo@gmail.com
@@ -65,24 +51,6 @@ git remote remove origin
 git remote add origin git@github.com:paulgualambo/m-vms-config.git
 git branch -M main
 git push -u origin main
-
-#UBUNTU
-
-
-## git
-sudo apt update
-sudo apt install git -y
-git --version
-
-#VIRTUAL BOX
-sudo apt-get update
-sudo apt-get install virtualbox
-VBoxManage --version
-
-#VAGRANT
-sudo apt-get update
-sudo apt-get install vagrant
-sudo apt autoremove -y
 
 ```
 

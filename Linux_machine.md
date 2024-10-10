@@ -37,6 +37,7 @@ Tener el sistema actualizado
 ```
 
 ### Instalación de controladores gráficos
+
 ```sh
     ## Ubuntu, debian, Kali
     ubuntu-drivers devices
@@ -50,6 +51,5 @@ Tener el sistema actualizado
     ## ArchLinux
 
 ```
-
 
 ### Configuración de los tres monitores
