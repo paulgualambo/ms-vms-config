@@ -1,47 +1,70 @@
 # [vms-getstart]
 
-## distribución
+## Nomenclatura de nodos de trabajo
 
-prefix
-paul-
+### prefix
 
-Machine
+pr2g-
+
+### machine
+
 pc01, laptop01, mac01, disk01
 
-s0
-windows 11   win11
-linux
-    ubuntu   ubuntu
-    debian   debian
-    fedora   fedora
-    redhat   rhle
-    linux-mint  lmint
-    open suse   opensuse
+### use
 
-macOS
-    Sonoma   msnma  
+personal, study, sandbox, w000, w001, w002, wxxx
+- personal -- > uso variado
+- study --> certificaciones
+- sandbox --> levantar aplicaciones temporales
+- w000 --> aplicaciones personales de proyectos
+- wxxx --> ambitos de trabajo
 
---type virtualization
-vtb, wsl, hyv
+### SO
 
---group
-w000, w001, w002, study, sandbox
+- windows
+  - windows11 win11
 
---host
-apps services 
+- linux
+  - ubuntu      ubuntu
+  - debian      debian
+  - fedora      fedora
+  - redhat      rhle
+  - linux-mint  lmint
+  - open suse   opensuse
 
-paul-pc01-ubuntu
-paul-pc01-fedora
-paul-laptop01-win11
-paul-laptop01-win11-wsl-sandbox-app
-paul-laptop01-win11-wsl-study-app
-paul-laptop01-win11-wsl-sandbox-app
+- macOS
+  - sonoma   msnma  
 
+### type virtualization
 
-study --> certificaciones
-sandbox --> levantar aplicaciones temporales
-w000 --> aplicaciones personales
-wxxx
+- vtb
+- wsl
+- hyv
+
+#### host
+
+- apps
+- services
+
+## instances
+
+### pc01
+
+- pr2g-pc01-personal-ubuntu
+- pr2g-pc01-study-debian
+- pr2g-pc01-w000-fedora
+- pr2g-pc01-w002-lmint
+- pr2g-pc01-sandbox-ubuntu
+- pr2g-pc01-sandbox-fedora
+
+### laptop01
+
+- pr2g-laptop01-personal-win11
+- pr2g-laptop01-w001-win11
+- p2rg-laptop01-study-win11
+- p2rg-laptop01-w000-ubuntu
+- p2rg-laptop01-w002-fedora
+- p2rg-laptop01-personal-fedora
 
 ```sh
 git config user.email paul.gualambo@gmail.com
@@ -52,48 +75,26 @@ git remote add origin git@github.com:paulgualambo/m-vms-config.git
 git branch -M main
 git push -u origin main
 
+ssh-keygen -t ed25519 -C "paul.gualambo@gmail.com - study - personal - sandbox" -f 'c:/Users/paul/.ssh/paul-sps-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paul.gualambo.w000@gmail.com - w000 - [name - w000]" -f 'c:/Users/paul/.ssh/paul-w000-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paulgualambo@[w001-domain] - w001 - [name - w001]" -f 'c:/Users/paul/.ssh/paul-w001-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paul.gualambo@[w002-domain] - w002 - [name - w002]" -f 'c:/Users/paul/.ssh/paul-w002-id-key_ed25519'
 ```
 
-Creacion de ssh
-
-### paul-laptop01
-personal
-study
-sandbox
-comunicacion entre vm, wsl, hp
-
-
-```
-#personal -> me, stype, sandbox
-#w001
-#w002
-
-ssh-keygen -t ed25519 -C "paul.gualambo@gmail.com - study - sandbox - personal" -f 'c:/Users/paul/.ssh/paul-laptop01-me-id-key_ed25519'
-
-ssh-keygen -t ed25519 -C "paulgualambo@[w001-domain] - w001 - [name - w001]" -f 'c:/Users/paul/.ssh/paul-laptop01-w001-id-key_ed25519'
-
-ssh-keygen -t ed25519 -C "paul.gualambo@[w002-domain] - w002 - [name - w002]" -f 'c:/Users/paul/.ssh/paul-laptop01-w002-id-key_ed25519'
-
+```sh
+#Convertir todos los archivos a formato Unix
+sudo apt install dos2unix
+for file in *; do
+    if [ -f "$file" ]; then
+        dos2unix "$file"
+    fi
+done
+find . -type f -exec dos2unix {} \;
 ```
 
-ssh-add C:\Users\paul\.ssh\paul-laptop01-me-id-key_ed25519
-ssh-add C:\Users\paul\.ssh\paul-laptop01-w001-id-key_ed25519
-ssh-add C:\Users\paul\.ssh\paul-laptop01-w002-id-key_ed25519
-
-
-
+1.- Creacion de usuario y brindales los permisos de sudo
 2. Reinstalar el GRUB desde Red Hat (opcional)
 Si prefieres que el GRUB de Red Hat sea el que controle el arranque, puedes reinstalarlo. Para esto:
-
-Arranca tu laptop utilizando un Live USB de RHEL.
-
-Abre una terminal y monta las particiones de Red Hat:
-
-Monta la partición principal:
-bash
-Copiar código
-sudo mount /dev/sdXY /mnt
-(Cambia /dev/sdXY por la partición de Red Hat, por ejemplo /dev/sda1).
 
 Monta las particiones adicionales si tienes /boot o /boot/efi separados:
 bash
@@ -114,9 +115,6 @@ Copiar código
 sudo chroot /mnt
 grub2-mkconfig -o /boot/grub2/grub.cfg
 Reinicia la laptop. Ahora deberías ver el GRUB de RHEL y poder cargar ambos sistemas operativos.
-
-
-
 
 Pasos a seguir:
 Crear un Live USB de RHEL:
@@ -179,5 +177,3 @@ Comprobación de Particiones: Asegúrate de que las particiones de RHEL no hayan
 Actualizaciones del Sistema: Mantén tanto Ubuntu como RHEL actualizados para evitar conflictos y asegurar que ambos sistemas operativos funcionen correctamente con las últimas versiones de GRUB.
 
 Espero que estos pasos te ayuden a resolver el problema con GRUB y a poder arrancar correctamente tanto Ubuntu como RHEL en tu laptop. Si encuentras alguna dificultad durante el proceso, no dudes en proporcionarme más detalles para poder asistirte mejor.
-
-

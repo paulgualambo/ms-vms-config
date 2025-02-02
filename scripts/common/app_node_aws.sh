@@ -37,13 +37,13 @@ npm -v
 
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo dnf-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/dnf/sources.list.d/yarn.list
-sudo dnf update
-sudo dnf install yarn -y
+sudo apt update
+sudo apt install yarn -y
 yarn --version
 
 #AWS
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-sudo dnf install unzip -y
+sudo apt install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install
 aws --version

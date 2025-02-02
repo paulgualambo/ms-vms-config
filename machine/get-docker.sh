@@ -80,7 +80,7 @@ set -e
 
 # Git commit from https://github.com/docker/docker-install when
 # the script was uploaded (Should only be modified by upload job):
-SCRIPT_COMMIT_SHA="39040d838e8bcc48c23a0cc4117475dd15189976"
+SCRIPT_COMMIT_SHA="4c94a56999e10efcf48c5b8e3f6afea464f9108e"
 
 # strip "v" prefix if present
 VERSION="${VERSION#v}"
@@ -368,7 +368,9 @@ do_install() {
 			installation.
 
 			If you installed the current Docker package using this script and are using it
-			again to update Docker, you can safely ignore this message.
+			again to update Docker, you can ignore this message, but be aware that the
+			script resets any custom changes in the deb and rpm repo configuration
+			files to match the parameters passed to the script.
 
 			You may press Ctrl+C now to abort this script.
 		EOF
@@ -483,7 +485,7 @@ do_install() {
 			deprecation_notice "$lsb_dist" "$dist_version"
 			;;
 		fedora.*)
-			if [ "$dist_version" -lt 39 ]; then
+			if [ "$dist_version" -lt 40 ]; then
 				deprecation_notice "$lsb_dist" "$dist_version"
 			fi
 			;;
@@ -558,15 +560,8 @@ do_install() {
 					set -x
 				fi
 				if command_exists dnf5; then
-					# $sh_c "dnf -y -q --setopt=install_weak_deps=False install dnf-plugins-core"
-					# $sh_c	"dnf5 config-manager addrepo --save-filename=docker-ce.repo --from-repofile='$repo_file_url'"
-
-					$sh_c "dnf -y -q --setopt=install_weak_deps=False install curl dnf-plugins-core"
-					# FIXME(thaJeztah); strip empty lines as workaround for https://github.com/rpm-software-management/dnf5/issues/1603
-					TMP_REPO_FILE="$(mktemp --dry-run)"
-					$sh_c "curl -fsSL '$repo_file_url' | tr -s '\n' > '${TMP_REPO_FILE}'"
-					$sh_c "dnf5 config-manager addrepo --save-filename=docker-ce.repo --overwrite --from-repofile='${TMP_REPO_FILE}'"
-					$sh_c "rm -f '${TMP_REPO_FILE}'"
+					$sh_c "dnf -y -q --setopt=install_weak_deps=False install dnf-plugins-core"
+					$sh_c "dnf5 config-manager addrepo --overwrite --save-filename=docker-ce.repo --from-repofile='$repo_file_url'"
 
 					if [ "$CHANNEL" != "stable" ]; then
 						$sh_c "dnf5 config-manager setopt \"docker-ce-*.enabled=0\""
@@ -575,6 +570,7 @@ do_install() {
 					$sh_c "dnf makecache"
 				elif command_exists dnf; then
 					$sh_c "dnf -y -q --setopt=install_weak_deps=False install dnf-plugins-core"
+					$sh_c "rm -f /etc/yum.repos.d/docker-ce.repo  /etc/yum.repos.d/docker-ce-staging.repo"
 					$sh_c "dnf config-manager --add-repo $repo_file_url"
 
 					if [ "$CHANNEL" != "stable" ]; then
@@ -584,11 +580,12 @@ do_install() {
 					$sh_c "dnf makecache"
 				else
 					$sh_c "yum -y -q install yum-utils"
-					$sh_c "yum config-manager --add-repo $repo_file_url"
+					$sh_c "rm -f /etc/yum.repos.d/docker-ce.repo  /etc/yum.repos.d/docker-ce-staging.repo"
+					$sh_c "yum-config-manager --add-repo $repo_file_url"
 
 					if [ "$CHANNEL" != "stable" ]; then
-						$sh_c "yum config-manager --disable \"docker-ce-*\""
-						$sh_c "yum config-manager --enable \"docker-ce-$CHANNEL\""
+						$sh_c "yum-config-manager --disable \"docker-ce-*\""
+						$sh_c "yum-config-manager --enable \"docker-ce-$CHANNEL\""
 					fi
 					$sh_c "yum makecache"
 				fi
@@ -666,18 +663,23 @@ do_install() {
 					set -x
 				fi
 				$sh_c "zypper install -y $pre_reqs"
+				$sh_c "rm -f /etc/zypp/repos.d/docker-ce-*.repo"
 				$sh_c "zypper addrepo $repo_file_url"
-				if ! is_dry_run; then
-						cat >&2 <<-'EOF'
-						WARNING!!
-						openSUSE repository (https://download.opensuse.org/repositories/security:/SELinux) will be enabled now.
-						Do you wish to continue?
-						You may press Ctrl+C now to abort this script.
+
+				opensuse_factory_url="https://download.opensuse.org/repositories/security:/SELinux/openSUSE_Factory/"
+				if ! zypper lr -d | grep -q "${opensuse_factory_url}"; then
+					opensuse_repo="${opensuse_factory_url}security:SELinux.repo"
+					if ! is_dry_run; then
+						cat >&2 <<- EOF
+							WARNING!!
+							openSUSE repository ($opensuse_repo) will be enabled now.
+							Do you wish to continue?
+							You may press Ctrl+C now to abort this script.
 						EOF
-						( set -x; sleep 30 )
+						( set -x; sleep 20 )
+					fi
+					$sh_c "zypper addrepo $opensuse_repo"
 				fi
-				opensuse_repo="https://download.opensuse.org/repositories/security:/SELinux/openSUSE_Factory/security:SELinux.repo"
-				$sh_c "zypper addrepo $opensuse_repo"
 				$sh_c "zypper --gpg-auto-import-keys refresh"
 				$sh_c "zypper lr -d"
 			)
