@@ -16,8 +16,10 @@ personal, study, sandbox, w000, w001, w002, wxxx
 - personal -- > uso variado
 - study --> certificaciones
 - sandbox --> levantar aplicaciones temporales
-- w000 --> aplicaciones personales de proyectos
-- wxxx --> ambitos de trabajo
+- w000 --> aplicaciones personales de proyectos (aplicaciones, pr2g-erp)
+- wxxx --> ambitos de trabajo (w001, w002, ...)
+  - w001 work now, typescript aws github jira postman
+  - w002 work NET aws jira confluence postman vscode visual studio 
 
 ### SO
 
@@ -37,7 +39,7 @@ personal, study, sandbox, w000, w001, w002, wxxx
 
 ### type virtualization
 
-- vtb
+- vgt
 - wsl
 - hyv
 
@@ -46,7 +48,7 @@ personal, study, sandbox, w000, w001, w002, wxxx
 - apps
 - services
 
-## instances
+## instances of nodos
 
 ### pc01
 
@@ -59,27 +61,58 @@ personal, study, sandbox, w000, w001, w002, wxxx
 
 ### laptop01
 
-- pr2g-laptop01-personal-win11
-- pr2g-laptop01-w001-win11
-- p2rg-laptop01-study-win11
-- p2rg-laptop01-w000-ubuntu
-- p2rg-laptop01-w002-fedora
-- p2rg-laptop01-personal-fedora
+- pr2g-laptop01-personal-win11      150
+    - pr2g-laptop01-personal-win11-wsl-apps-ubuntu24
+    - pr2g-laptop01-personal-win11-wsl-services-ubuntu24
+
+- pr2g-laptop01-w001-win11          200
+    - pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
+    - pr2g-laptop01-w001-win11-wsl-services-ubuntu24
+    - pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
+    - pr2g-laptop01-w001-win11-wsl-study-services-ubuntu24
+
+- p2rg-laptop01-study-win11         200 (disk01)
+    - pr2g-laptop01-study-win11-wsl-apps-ubuntu24
+    - pr2g-laptop01-study-win11-wsl-services-ubuntu24
+
+- p2rg-laptop01-w000-ubuntu         100 (disk01)
+    - pr2g-laptop01-w000-ubuntu-vgt-apps-ubuntu24
+    - pr2g-laptop01-w000-ubuntu-vgt-services-ubuntu24
+    - pr2g-laptop01-w000-ubuntu-vgt-study-apps-ubuntu24
+    - pr2g-laptop01-w000-ubuntu-vgt-study-services-ubuntu24
+
+- p2rg-laptop01-w002-fedora         100 (disk01)
+    - pr2g-laptop01-w002-fedora-vgt-apps-ubuntu24
+    - pr2g-laptop01-w002-fedora-vgt-services-ubuntu24
+    - pr2g-laptop01-w002-fedora-vgt-study-apps-ubuntu24
+    - pr2g-laptop01-w002-fedora-vgt-study-services-ubuntu24
+
+- p2rg-laptop01-personal-fedora     100 (disk01)
+    - pr2g-laptop01-personal-fedora-vgt-study-apps-ubuntu24
+    - pr2g-laptop01-personal-fedora-vgt-study-services-ubuntu24
 
 ```sh
 git config user.email paul.gualambo@gmail.com
-git config user.name 'Paul R. Gualambo Giraldo'
+git config user.name 'Paul Romualdo Gualambo Giraldo'
 
 git remote remove origin
 git remote add origin git@github.com:paulgualambo/m-vms-config.git
 git branch -M main
 git push -u origin main
 
-ssh-keygen -t ed25519 -C "paul.gualambo@gmail.com - study - personal - sandbox" -f 'c:/Users/paul/.ssh/paul-sps-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paul.gualambo@gmail.com - study - personal - sandbox" -f 'c:/Users/paul/.ssh/paul-study-personal-sandbox-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paul.gualambo@gmail.com - study - personal - sandbox" -f '/home/paul/.ssh/p2rg-study-personal-sandbox-id-key_ed25519'
+
 ssh-keygen -t ed25519 -C "paul.gualambo.w000@gmail.com - w000 - [name - w000]" -f 'c:/Users/paul/.ssh/paul-w000-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paul.gualambo.w000@xxxx.xxx - w000 - [name - w000]" -f '/home/paul/.ssh/p2rg-w000-id-key_ed25519'
+
 ssh-keygen -t ed25519 -C "paulgualambo@[w001-domain] - w001 - [name - w001]" -f 'c:/Users/paul/.ssh/paul-w001-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paul.gualambo.w000@xxxx.xxx - w001 - [name - w000]" -f '/home/paul/.ssh/p2rg-w001-id-key_ed25519'
+
 ssh-keygen -t ed25519 -C "paul.gualambo@[w002-domain] - w002 - [name - w002]" -f 'c:/Users/paul/.ssh/paul-w002-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paul.gualambo.w002@xxxx.xxx - w002 - [name - w002]" -f '/home/paul/.ssh/p2rg-w002-id-key_ed25519'
 ```
+
 
 ```sh
 #Convertir todos los archivos a formato Unix
@@ -177,4 +210,3 @@ Comprobación de Particiones: Asegúrate de que las particiones de RHEL no hayan
 Actualizaciones del Sistema: Mantén tanto Ubuntu como RHEL actualizados para evitar conflictos y asegurar que ambos sistemas operativos funcionen correctamente con las últimas versiones de GRUB.
 
 Espero que estos pasos te ayuden a resolver el problema con GRUB y a poder arrancar correctamente tanto Ubuntu como RHEL en tu laptop. Si encuentras alguna dificultad durante el proceso, no dudes en proporcionarme más detalles para poder asistirte mejor.
-    
