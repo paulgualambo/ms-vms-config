@@ -54,10 +54,11 @@ Tener el sistema actualizado
 
 ### Software base instalación
 
-- gparted
-- chrome
-- vscode
-- postman
+- Linux
+    - gparted
+    - chrome
+    - vscode
+    - postman
 
 ### Personalización del workspace
 
@@ -70,12 +71,14 @@ Tener el sistema actualizado
 
 ```sh
 #Creacion de la carpeta
+## Esto es en la misma pc01
 sudo mkdir -p /mnt/pr2g-pc01-data-shared-ext4
 sudo mkdir -p /mnt/{prefix}-{machine}-{use}-data
+
+
 sudo mkdir -p /mnt/pr2g-pc01-study-data
 
-##Automontado
-
+##Automontado pasos para su realización
 lsblk -f
 sudo blkid
 

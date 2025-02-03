@@ -107,7 +107,7 @@ ssh-keygen -t ed25519 -C "paul.gualambo.w000@gmail.com - w000 - [name - w000]" -
 ssh-keygen -t ed25519 -C "paul.gualambo.w000@xxxx.xxx - w000 - [name - w000]" -f '/home/paul/.ssh/p2rg-w000-id-key_ed25519'
 
 ssh-keygen -t ed25519 -C "paulgualambo@[w001-domain] - w001 - [name - w001]" -f 'c:/Users/paul/.ssh/paul-w001-id-key_ed25519'
-ssh-keygen -t ed25519 -C "paul.gualambo.w000@xxxx.xxx - w001 - [name - w000]" -f '/home/paul/.ssh/p2rg-w001-id-key_ed25519'
+ssh-keygen -t ed25519 -C "paul.gualambo.w001@xxxx.xxx - w001 - [name - w000]" -f '/home/paul/.ssh/p2rg-w001-id-key_ed25519'
 
 ssh-keygen -t ed25519 -C "paul.gualambo@[w002-domain] - w002 - [name - w002]" -f 'c:/Users/paul/.ssh/paul-w002-id-key_ed25519'
 ssh-keygen -t ed25519 -C "paul.gualambo.w002@xxxx.xxx - w002 - [name - w002]" -f '/home/paul/.ssh/p2rg-w002-id-key_ed25519'
