@@ -1,22 +1,3 @@
-#mount disk externo to win wsl
-## From power shell
-## Tambien se puede revisar desde el Disk Management
-list disk
-select disk 1
-list partition
-
-sudo mkdir -p /home/paul/workspaces
-wsl --mount \\.\PHYSICALDRIVE1 --partition 5 --type ext4
-ln -s /mnt/wsl/PHYSICALDRIVE1p5/[directory] /home/paul/workspaces
-sudo chown -R paul:paul /mnt/wsl/PHYSICALDRIVE1p5
-
-sudo nano /etc/wsl.conf
-
-[automount]
-enabled = true
-root = /mnt/
-options = "metadata,umask=022,fmask=111"
-
 ## Performance
 https://github.com/ChrisTitusTech/winutil
 
