@@ -1,0 +1,30 @@
+{
+    "w001": {
+        "wsl": {
+            "sandbox": {
+                "HOSTNAME": "pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24",
+                "USERNAME": "paul",
+                "FULLNAME": "Paul Romualdo Gualambo Giraldo",
+                "EMAIL": "paul.gualambo@gmail.com",
+                "PASSWORD": "P@ul1984",
+                "DISTRO": "DEBIAN"
+            },
+            "apps": {
+                "HOSTNAME": "pr2g-laptop01-w001-win11-wsl-apps-ubuntu24",
+                "USERNAME": "paul",
+                "FULLNAME": "Paul Romualdo Gualambo Giraldo",
+                "EMAIL": "paul.gualambo@gmail.com",
+                "PASSWORD": "P@ul1984",
+                "DISTRO": "DEBIAN"
+            },
+            "study-apps": {
+                "HOSTNAME": "pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24",
+                "USERNAME": "paul",
+                "FULLNAME": "Paul Romualdo Gualambo Giraldo",
+                "EMAIL": "paul.gualambo@gmail.com",
+                "PASSWORD": "P@ul1984",
+                "DISTRO": "DEBIAN"
+            }
+        }
+    }
+}

@@ -17,8 +17,7 @@ config=$(echo "$json_input" | jq -r $PATH_JSON)
 echo $config
 
 # Obtención de las variables
-HOSTNAME_BASE=$(echo $config | jq -r '.HOSTNAME_BASE // "paul-laptop01"')
-HOSTNAME_NEW=$(echo $config | jq -r '.HOSTNAME_NEW // "paul-laptop01-wsl-sandbox-app"')
+HOSTNAME_NEW=$(echo $config | jq -r '.HOSTNAME // "paul-laptop01-wsl-sandbox-app"')
 USERNAME=$(echo $config | jq -r '.USERNAME // "paul"')
 EMAIL=$(echo $config | jq -r '.EMAIL // "paul.gualambo@gmail.com"')
 PASSWORD=$(echo $config | jq -r '.PASSWORD // "P@ul1984"')
@@ -49,10 +48,6 @@ rm -rf ~/config_vm
 mkdir -p ~/config_vm
 cd ~/config_vm
 wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/wsl/install.sh
-wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/virtual-machine/scripts_to_provision/app.sh
-wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/virtual-machine/scripts_to_provision/backup.sh
-wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/virtual-machine/scripts_to_provision/deploy.sh
-wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/virtual-machine/scripts_to_provision/infra.sh
 wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/wsl/startup.sh
 
 sudo chmod 775 -R ~/config_vm

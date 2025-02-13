@@ -1,5 +1,15 @@
 # GUÍA DE INSTALACIÓN
 
+## 0. CREAR UNA NUEVA INSTANCIA DE WSL
+
+a. Instalar una nueva distribución
+```sh
+    wsl --list --online
+    # o su forma abreviada:
+    wsl -l -o
+    wsl --install -d Ubuntu-24.04
+```
+
 ## 1. CONFIGURACIÓN DE WSL
 
 a. Exportar la imagen de WSL
@@ -10,6 +20,7 @@ Requisito previo: Tener una imagen exportada de WSL (\*.tar) configurada con el 
 # -pr2g-laptop01-w001-win11-wsl-services-ubuntu24
 # -pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
 # -pr2g-laptop01-w001-win11-wsl-study-services-ubuntu24
+# -pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24
 ```
 
 
@@ -18,6 +29,9 @@ b. Importar la imagen de WSL
 1. Ejecutar el siguiente comando (reemplazar <nombre_máquina> y <ruta_imagen>):
 
 ```sh
+wsl --export Ubuntu-24.04 E:\win11\wsl\so-images\pr2g-win11-wsl-ubuntu24-image.tar
+wsl --import pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24 E:\win11\wsl\so-instances\pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24 E:\win11\wsl\so-images\pr2g-win11-wsl-ubuntu24-image.tar
+
 wsl --import <nombre_máquina> <directorio_destino> <ruta_imagen.tar>
 ```
 
@@ -30,14 +44,15 @@ wsl -l -v
 c. Configurar el nombre del host
 
 ```sh
-sudo nano /etc/hostname /etc/hosts
+sudo nano /etc/hostname 
+sudo nano /etc/hosts
+sudo nano /etc/wsl.conf
 ```
 
     d. Modificar wsl.conf en base a la plantilla
     
 
     ```sh
-    sudo nano /etc/wsl.conf
     ### 1 ###
 
     sudo apt-get update
@@ -47,21 +62,20 @@ sudo nano /etc/hostname /etc/hosts
     rm -rf ~/config_vm
     mkdir -p ~/config_vm
     cd ~/config_vm
+    DEVICE_NAME=pr2g-laptop01
+    DEVICE_INSTANCE_SO=pr2g-laptop01-w001-win11
+    DEVICE_INSTANCE_SO_CREATE=.w001.wsl.study
     TOKEN_GITHUB=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
-    wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/workspace/paul-laptop01-win11/wsl-vms.json
-    wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/wsl/host-config.sh
-    . ~/config_vm/host-config.sh "$(cat wsl-vms.json)" ".local.me" "$TOKEN_GITHUB"
+    wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/workspace/${DEVICE_NAME}/vms.json
 
     #### 2 Power shell #####
-    wsl --terminate paul-laptop01-win11-wsl-w001-app
-    wsl -d paul-laptop01-win11-wsl-w001-app -u paul
+    # wsl --terminate paul-laptop01-win11-wsl-w001-app
+    # wsl -d paul-laptop01-win11-wsl-w001-app -u paul
 
     #### 3 #####
     cd ~/config_vm
-    TOKEN_GITHUB=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
     wget  --header="Authorization: token $TOKEN_GITHUB" --header="Accept: application/vnd.github.v3.raw" https://raw.githubusercontent.com/paulgualambo/ms-vms-configure-admin/main/wsl/pre-startup.sh
-
-    . ~/config_vm/pre-startup.sh "$(cat wsl-vms.json)" ".w001.app" "$TOKEN_GITHUB"
+    . ~/config_vm/pre-startup.sh "$(cat vms.json)" "$DEVICE_INSTANCE_SO_CREATE" "$TOKEN_GITHUB"
 
     ```
 
