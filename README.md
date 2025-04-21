@@ -68,7 +68,10 @@ personal, study, sandbox, w000, w001, w002, wxxx
 - pr2g-laptop01-w001-win11          200
     - pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
     - pr2g-laptop01-w001-win11-wsl-services-ubuntu24
-    - pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
+    - pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24 
+      ```sh
+      wsl -d pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
+      ```
     - pr2g-laptop01-w001-win11-wsl-study-services-ubuntu24
     - pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24
 
