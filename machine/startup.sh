@@ -133,7 +133,7 @@ configure_ssh_keys() {
 
 ## Install basic dev tools
 install_dev_tools() {
-    USERNAME="paul"
+    USERNAME=${1:-"paul"}
     sudo wget -O - https://raw.githubusercontent.com/paulgualambo/infrastructure-tools/main/linux/config_install_software_dev.sh | bash -s -- "$USERNAME"
     source ~/.bashrc
 }
