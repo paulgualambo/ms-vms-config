@@ -1,4 +1,4 @@
-# [vms-getstart]
+# [ms-vms-getstart]
 
 ## Nomenclatura de nodos de trabajo
 
@@ -8,7 +8,7 @@ pr2g-
 
 ### machine
 
-pc01, laptop01, mac01, disk01
+pc01, laptop01, mac01, disk01, notebook01
 
 ### use
 
@@ -19,7 +19,7 @@ personal, study, sandbox, w000, w001, w002, wxxx
 - w000 --> aplicaciones personales de proyectos (aplicaciones, pr2g-erp)
 - wxxx --> ambitos de trabajo (w001, w002, ...)
   - w001 work now, typescript aws github jira postman
-  - w002 work NET aws jira confluence postman vscode visual studio 
+  - w002 work NET aws jira confluence postman vscode visual studio
 
 ### SO
 
@@ -35,7 +35,7 @@ personal, study, sandbox, w000, w001, w002, wxxx
   - open suse   opensuse
 
 - macOS
-  - sonoma   msnma  
+  - sonoma   msnma
 
 ### type virtualization
 
@@ -127,7 +127,7 @@ find . -type f -exec dos2unix {} \;
 ```
 
 1.- Creacion de usuario y brindales los permisos de sudo
-2. Reinstalar el GRUB desde Red Hat (opcional)
+2.- Reinstalar el GRUB desde Red Hat (opcional)
 Si prefieres que el GRUB de Red Hat sea el que controle el arranque, puedes reinstalarlo. Para esto:
 
 Monta las particiones adicionales si tienes /boot o /boot/efi separados:
@@ -200,7 +200,7 @@ Reinicia tu laptop:
 bash
 Copiar código
 sudo reboot
-4. Verificar la Integridad del Kernel
+4.- Verificar la Integridad del Kernel
 Si después de seguir los pasos anteriores RHEL aún no arranca correctamente, es posible que el kernel esté dañado. En este caso, considera reinstalar RHEL o restaurar desde una copia de seguridad si tienes una disponible.
 
 Consejos Adicionales:
