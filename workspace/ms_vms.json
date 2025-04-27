@@ -1,0 +1,16 @@
+{
+    "default":{
+        "hostname":"pr2g-default",
+        "distro":"DEBIAN",
+        "username":"paul",
+        "email":"paul.gualambo@gmail.com",
+        "password":"123456"
+    },    
+    "pr2g-laptop01-w001-win11-wsl-sandbox":{
+        "hostname":"pr2g-laptop01-w001-win11-wsl-sandbox",
+        "distro":"DEBIAN",
+        "username":"paul",
+        "email":"paul.gualambo@gmail.com",
+        "password":"123456"
+    }
+}

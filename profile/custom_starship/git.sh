@@ -16,8 +16,8 @@ if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
         echo "Correo de Git configurado: $git_email"
 
         # Comprobar el dominio del correo
-        if [[ "$git_email" == *@matrix* ]]; then
-            echo -e "\e[34mEste correo pertenece a Matrix\e[0m"  # Azul para correos que contienen 'matrix'
+        if [[ "$git_email" == *@w001* ]]; then
+            echo -e "\e[34mEste correo pertenece a w001\e[0m"  # Azul para correos que contienen 'w001'
         elif [[ "$git_email" == *@gmail.com ]]; then
             echo -e "\e[32mEste correo es de Gmail\e[0m"  # Verde para correos de Gmail
         else
