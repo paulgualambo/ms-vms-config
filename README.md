@@ -1,4 +1,4 @@
-# [vms-getstart]
+# [ms-vms-getstart]
 
 ## Nomenclatura de nodos de trabajo
 
@@ -19,7 +19,7 @@ personal, study, sandbox, w000, w001, w002, wxxx
 - w000 --> aplicaciones personales de proyectos (aplicaciones, pr2g-erp)
 - wxxx --> ambitos de trabajo (w001, w002, ...)
   - w001 work now, typescript aws github jira postman
-  - w002 work NET aws jira confluence postman vscode visual studio 
+  - w002 work NET aws jira confluence postman vscode visual studio
 
 ### SO
 
@@ -35,11 +35,11 @@ personal, study, sandbox, w000, w001, w002, wxxx
   - open suse   opensuse
 
 - macOS
-  - sonoma   msnma  
+  - sonoma   msnma
 
 ### type virtualization
 
-- vgt
+- vb
 - wsl
 - hyv
 
@@ -65,10 +65,12 @@ personal, study, sandbox, w000, w001, w002, wxxx
     - pr2g-laptop01-personal-win11-wsl-apps-ubuntu24
     - pr2g-laptop01-personal-win11-wsl-services-ubuntu24
 
+    - pr2g-laptop01-personal-win11-vb-apps-ubuntu24
+
 - pr2g-laptop01-w001-win11          200
     - pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
     - pr2g-laptop01-w001-win11-wsl-services-ubuntu24
-    - pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24 
+    - pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
       ```sh
       wsl -d pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
       ```
@@ -80,20 +82,20 @@ personal, study, sandbox, w000, w001, w002, wxxx
     - pr2g-laptop01-study-win11-wsl-services-ubuntu24
 
 - p2rg-laptop01-w000-ubuntu         100 (disk01)
-    - pr2g-laptop01-w000-ubuntu-vgt-apps-ubuntu24
-    - pr2g-laptop01-w000-ubuntu-vgt-services-ubuntu24
-    - pr2g-laptop01-w000-ubuntu-vgt-study-apps-ubuntu24
-    - pr2g-laptop01-w000-ubuntu-vgt-study-services-ubuntu24
+    - pr2g-laptop01-w000-ubuntu-vb-apps-ubuntu24
+    - pr2g-laptop01-w000-ubuntu-vb-services-ubuntu24
+    - pr2g-laptop01-w000-ubuntu-vb-study-apps-ubuntu24
+    - pr2g-laptop01-w000-ubuntu-vb-study-services-ubuntu24
 
 - p2rg-laptop01-w002-fedora         100 (disk01)
-    - pr2g-laptop01-w002-fedora-vgt-apps-ubuntu24
-    - pr2g-laptop01-w002-fedora-vgt-services-ubuntu24
-    - pr2g-laptop01-w002-fedora-vgt-study-apps-ubuntu24
-    - pr2g-laptop01-w002-fedora-vgt-study-services-ubuntu24
+    - pr2g-laptop01-w002-fedora-vb-apps-ubuntu24
+    - pr2g-laptop01-w002-fedora-vb-services-ubuntu24
+    - pr2g-laptop01-w002-fedora-vb-study-apps-ubuntu24
+    - pr2g-laptop01-w002-fedora-vb-study-services-ubuntu24
 
 - p2rg-laptop01-personal-fedora     100 (disk01)
-    - pr2g-laptop01-personal-fedora-vgt-study-apps-ubuntu24
-    - pr2g-laptop01-personal-fedora-vgt-study-services-ubuntu24
+    - pr2g-laptop01-personal-fedora-vb-study-apps-ubuntu24
+    - pr2g-laptop01-personal-fedora-vb-study-services-ubuntu24
 
 ```sh
 git config user.email paul.gualambo@gmail.com
@@ -130,7 +132,7 @@ find . -type f -exec dos2unix {} \;
 ```
 
 1.- Creacion de usuario y brindales los permisos de sudo
-2. Reinstalar el GRUB desde Red Hat (opcional)
+2.- Reinstalar el GRUB desde Red Hat (opcional)
 Si prefieres que el GRUB de Red Hat sea el que controle el arranque, puedes reinstalarlo. Para esto:
 
 Monta las particiones adicionales si tienes /boot o /boot/efi separados:
@@ -203,7 +205,8 @@ Reinicia tu laptop:
 bash
 Copiar código
 sudo reboot
-4. Verificar la Integridad del Kernel
+
+4.- Verificar la Integridad del Kernel
 Si después de seguir los pasos anteriores RHEL aún no arranca correctamente, es posible que el kernel esté dañado. En este caso, considera reinstalar RHEL o restaurar desde una copia de seguridad si tienes una disponible.
 
 Consejos Adicionales:

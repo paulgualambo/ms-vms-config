@@ -4,16 +4,45 @@
 
 a. Instalar una nueva distribución
 ```sh
-    wsl --list --online
-    # o su forma abreviada:
-    wsl -l -o
-    wsl --install -d Ubuntu-24.04
+   # windows
+   # listar las versiones disponibles
+   wsl --list --online
+   # o su forma abreviada:
+   wsl -l -o
+
+    ##eliminando el wsl
+    wsl --unregister <NombreDeTuDistribucionPersonalizada>
+    #example
+    wsl --unregister pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24
+
+   #Instalacion de un distro, o descargarse una desde externamente desde ubuntu
+   ##wsl --install -d Ubuntu-24.04
+   https://ubuntu.com/desktop/wsl
+   wsl --export Ubuntu-24.04 E:\win11\wsl\so-images\base-ubuntu2402-microsoft-base-user-paul.tar
+   wsl --import <NombreDeTuDistribucionPersonalizada> <RutaDeInstalacion> <RutaDelArchivoTarGz>
+
+   #Ejemplo   
+   wsl --import pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24 E:\win11\wsl\so-instances\pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24 E:\win11\wsl\so-images\base-ubuntu-24.04.2-wsl-amd64.gz
+
+   #Hacer un wsl temporal
+   wsl --import pr2g-laptop01-w001-win11-wsl-apps-ubuntu24-temp E:\win11\wsl\so-instances\pr2g-laptop01-w001-win11-wsl-apps-ubuntu24-temp E:\win11\wsl\so-images\base-ubuntu2402-microsoft-base-user-paul.tar
+
+   # Levantar la maquina virtual
+   wsl -d <nombre_máquina>
+
+   # Creacion de usuario
+   # apt install -y jq
+   # bash <(curl -s https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/wsl/install.sh?${RANDOM}) '{"hostname":"pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24", "distro":"DEBIAN", "username":"paul", "email":"paul.gualambo@gmail.com", "password":"123456"}'
+
+    # Ajustes en wsl.conf
+    # bash <(curl -s "https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/wsl/wsl-config.sh?${RANDOM}") '{"hostname":"pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24", "distro":"DEBIAN", "username":"paul", "email":"paul.gualambo@gmail.com", "password":"123456"}'
+
 ```
 
 ## 1. CONFIGURACIÓN DE WSL
 
 a. Exportar la imagen de WSL
-Requisito previo: Tener una imagen exportada de WSL (\*.tar) configurada con el usuario paul.
+Requisito previo: Tener una imagen exportada de WSL (\*.tar) o gz
 
 ```sh
 # -pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
@@ -29,19 +58,13 @@ b. Importar la imagen de WSL
 1. Ejecutar el siguiente comando (reemplazar <nombre_máquina> y <ruta_imagen>):
 
 ```sh
+# exportar
 wsl --export Ubuntu-24.04 E:\win11\wsl\so-images\pr2g-win11-wsl-ubuntu24-image.tar
-wsl --import pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24 E:\win11\wsl\so-instances\pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24 E:\win11\wsl\so-images\pr2g-win11-wsl-ubuntu24-image.tar
 
-wsl --import <nombre_máquina> <directorio_destino> <ruta_imagen.tar>
-```
 
 2. Verificar la importación:
 
-```sh
-wsl -l -v
-```
-
-c. Configurar el nombre del host
+c. Configurar nombre de usuario y el nombre del host
 
 ```sh
 sudo nano /etc/hostname 
