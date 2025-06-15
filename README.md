@@ -6,94 +6,103 @@
 
 pr2g-
 
-### machine
+### machine nodo
 
 pc01, laptop01, mac01, disk01, notebook01
 
 ### use
 
 personal, study, sandbox, w000, w001, w002, wxxx
-- personal -- > uso variado
-- study --> certificaciones
-- sandbox --> levantar aplicaciones temporales
-- w000 --> aplicaciones personales de proyectos (aplicaciones, pr2g-erp)
-- wxxx --> ambitos de trabajo (w001, w002, ...)
-  - w001 work now, typescript aws github jira postman
-  - w002 work NET aws jira confluence postman vscode visual studio
+
+-   personal -- > uso variado
+-   study --> certificaciones
+-   sandbox --> levantar aplicaciones temporales
+-   w000 --> aplicaciones personales de proyectos (aplicaciones, pr2g-erp)
+-   wxxx --> ambitos de trabajo (w001, w002, ...)
+    -   w001 work now, typescript aws github jira postman
+    -   w002 work NET aws jira confluence postman vscode visual studio
 
 ### SO
 
-- windows
-  - windows11 win11
+-   windows
 
-- linux
-  - ubuntu      ubuntu
-  - debian      debian
-  - fedora      fedora
-  - redhat      rhle
-  - linux-mint  lmint
-  - open suse   opensuse
+    -   windows11 win11
 
-- macOS
-  - sonoma   msnma
+-   linux
+
+    -   ubuntu ubuntu
+    -   debian debian
+    -   fedora fedora
+    -   redhat rhle
+    -   linux-mint lmint
+    -   open suse opensuse
+
+-   macOS
+    -   sonoma msnma
 
 ### type virtualization
 
-- vgt
-- wsl
-- hyv
+-   vb
+-   vbv
+-   wsl
+-   hyv
 
 #### host
 
-- apps
-- services
+-   apps
+-   services
 
 ## instances of nodos
 
 ### pc01
 
-- pr2g-pc01-personal-ubuntu
-- pr2g-pc01-study-debian
-- pr2g-pc01-w000-fedora
-- pr2g-pc01-w002-lmint
-- pr2g-pc01-sandbox-ubuntu
-- pr2g-pc01-sandbox-fedora
+-   pr2g-pc01-personal-ubuntu
+-   pr2g-pc01-study-debian
+-   pr2g-pc01-w000-fedora
+-   pr2g-pc01-w002-lmint
+-   pr2g-pc01-sandbox-ubuntu
+-   pr2g-pc01-sandbox-fedora
 
 ### laptop01
 
-- pr2g-laptop01-personal-win11      150
-    - pr2g-laptop01-personal-win11-wsl-apps-ubuntu24
-    - pr2g-laptop01-personal-win11-wsl-services-ubuntu24
+-   pr2g-laptop01-personal-win11 150
 
-- pr2g-laptop01-w001-win11          200
-    - pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
-    - pr2g-laptop01-w001-win11-wsl-services-ubuntu24
-    - pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24 
-      ```sh
-      wsl -d pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
-      ```
-    - pr2g-laptop01-w001-win11-wsl-study-services-ubuntu24
-    - pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24
+    -   pr2g-laptop01-personal-win11-wsl-apps-ubuntu24
+    -   pr2g-laptop01-personal-win11-wsl-services-ubuntu24
 
-- p2rg-laptop01-study-win11         200 (disk01)
-    - pr2g-laptop01-study-win11-wsl-apps-ubuntu24
-    - pr2g-laptop01-study-win11-wsl-services-ubuntu24
+-   pr2g-laptop01-w001-win11 200
 
-- p2rg-laptop01-w000-ubuntu         100 (disk01)
-    - pr2g-laptop01-w000-ubuntu-vgt-apps-ubuntu24
-    - pr2g-laptop01-w000-ubuntu-vgt-services-ubuntu24
-    - pr2g-laptop01-w000-ubuntu-vgt-study-apps-ubuntu24
-    - pr2g-laptop01-w000-ubuntu-vgt-study-services-ubuntu24
+    -   pr2g-laptop01-w001-win11-wsl-w001-apps-ubuntu24
+    -   pr2g-laptop01-w001-win11-wsl-w001-services-ubuntu24
+    -   pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
+        ```sh
+        wsl -d pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
+        ```
+    -   pr2g-laptop01-w001-win11-wsl-study-services-ubuntu24
+    -   pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24
 
-- p2rg-laptop01-w002-fedora         100 (disk01)
-    - pr2g-laptop01-w002-fedora-vgt-apps-ubuntu24
-    - pr2g-laptop01-w002-fedora-vgt-services-ubuntu24
-    - pr2g-laptop01-w002-fedora-vgt-study-apps-ubuntu24
-    - pr2g-laptop01-w002-fedora-vgt-study-services-ubuntu24
+-   p2rg-laptop01-study-win11 200 (disk01)
 
-- p2rg-laptop01-personal-fedora     100 (disk01)
-    - pr2g-laptop01-personal-fedora-vgt-study-apps-ubuntu24
-    - pr2g-laptop01-personal-fedora-vgt-study-services-ubuntu24
+    -   pr2g-laptop01-study-win11-wsl-apps-ubuntu24
+    -   pr2g-laptop01-study-win11-wsl-services-ubuntu24
+
+-   p2rg-laptop01-w000-ubuntu 100 (disk01)
+
+    -   pr2g-laptop01-w000-ubuntu-vgt-apps-ubuntu24
+    -   pr2g-laptop01-w000-ubuntu-vgt-services-ubuntu24
+    -   pr2g-laptop01-w000-ubuntu-vgt-study-apps-ubuntu24
+    -   pr2g-laptop01-w000-ubuntu-vgt-study-services-ubuntu24
+
+-   p2rg-laptop01-w002-fedora 100 (disk01)
+
+    -   pr2g-laptop01-w002-fedora-vgt-apps-ubuntu24
+    -   pr2g-laptop01-w002-fedora-vgt-services-ubuntu24
+    -   pr2g-laptop01-w002-fedora-vgt-study-apps-ubuntu24
+    -   pr2g-laptop01-w002-fedora-vgt-study-services-ubuntu24
+
+-   p2rg-laptop01-personal-fedora 100 (disk01)
+    -   pr2g-laptop01-personal-fedora-vgt-study-apps-ubuntu24
+    -   pr2g-laptop01-personal-fedora-vgt-study-services-ubuntu24
 
 ```sh
 git config user.email paul.gualambo@gmail.com
@@ -104,19 +113,16 @@ git remote add origin git@github.com:paulgualambo/m-vms-config.git
 git branch -M main
 git push -u origin main
 
-ssh-keygen -t ed25519 -C "paul.gualambo@gmail.com - study - personal - sandbox" -f 'c:/Users/paul/.ssh/paul-study-personal-sandbox-id-key_ed25519'
-ssh-keygen -t ed25519 -C "paul.gualambo@gmail.com - study - personal - sandbox" -f '/home/paul/.ssh/p2rg-study-personal-sandbox-id-key_ed25519'
+#por cada maquina laptop01, pc01, ... hay un conjunto de claves
+#nodo es laptop01, pc01, mac01
+ssh-keygen -t ed25519 -C "paul.gualambo@gmail.com - study - personal - sandbox" -f '/home/paul/.ssh/p2rg-[nodo]-study-personal-sandbox-id-key_ed25519'
 
-ssh-keygen -t ed25519 -C "paul.gualambo.w000@gmail.com - w000 - [name - w000]" -f 'c:/Users/paul/.ssh/paul-w000-id-key_ed25519'
-ssh-keygen -t ed25519 -C "paul.gualambo.w000@xxxx.xxx - w000 - [name - w000]" -f '/home/paul/.ssh/p2rg-w000-id-key_ed25519'
+ssh-keygen -t ed25519 -C "[paul.gualambo.w000]@[w000.xxx] - w000 - pr2g-erp" -f '/home/paul/.ssh/pr2g-[nodo]-w000-id-key_ed25519'
 
-ssh-keygen -t ed25519 -C "paulgualambo@[w001-domain] - w001 - [name - w001]" -f 'c:/Users/paul/.ssh/paul-w001-id-key_ed25519'
-ssh-keygen -t ed25519 -C "paul.gualambo.w001@xxxx.xxx - w001 - [name - w000]" -f '/home/paul/.ssh/p2rg-w001-id-key_ed25519'
+ssh-keygen -t ed25519 -C "[paulgualambo.w001]@[w001.domain] - w001 - [name - w001]" -f 'c:/Users/paul/.ssh/pr2g-[nodo]-w001-id-key_ed25519'
 
-ssh-keygen -t ed25519 -C "paul.gualambo@[w002-domain] - w002 - [name - w002]" -f 'c:/Users/paul/.ssh/paul-w002-id-key_ed25519'
-ssh-keygen -t ed25519 -C "paul.gualambo.w002@xxxx.xxx - w002 - [name - w002]" -f '/home/paul/.ssh/p2rg-w002-id-key_ed25519'
+ssh-keygen -t ed25519 -C "[paulgualambo.wxxx]@[wxxx-domain] - wxxx - [name - wxxx]" -f 'c:/Users/paul/.ssh/pr2g-[nodo]-wxxx-id-key_ed25519'
 ```
-
 
 ```sh
 #Convertir todos los archivos a formato Unix

@@ -67,7 +67,7 @@ Tener el sistema actualizado
 ### Configuración de los tres monitores
 
 
-### Automount de folders 
+### Automount de folders
 
 ```sh
 #Creacion de la carpeta
@@ -75,13 +75,10 @@ Tener el sistema actualizado
 sudo mkdir -p /mnt/pr2g-pc01-data-shared-ext4
 sudo mkdir -p /mnt/{prefix}-{machine}-{use}-data
 
-
 sudo mkdir -p /mnt/pr2g-pc01-study-data
-
 ##Automontado pasos para su realización
 lsblk -f
 sudo blkid
-
 sudo nano /etc/fstab
 UUID=7b031077-54a4-4a53-b696-439fb326c520 /mnt/pr2g-pc01-data-shared-ext4 ext4 defaults 0 2
 
@@ -89,7 +86,7 @@ UUID=7b031077-54a4-4a53-b696-439fb326c520 /mnt/pr2g-pc01-data-shared-ext4 ext4 d
 sudo mount -a
 systemctl daemon-reload
 #df -h | grep /mnt/{prefix}-{machine}-{use}-data
-df -h | grep /mnt/pr2g-pc01-data-shared-ext4 
+df -h | grep /mnt/pr2g-pc01-data-shared-ext4
 
 ## example
 ```
