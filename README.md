@@ -209,6 +209,7 @@ Reinicia tu laptop:
 bash
 Copiar código
 sudo reboot
+
 4.- Verificar la Integridad del Kernel
 Si después de seguir los pasos anteriores RHEL aún no arranca correctamente, es posible que el kernel esté dañado. En este caso, considera reinstalar RHEL o restaurar desde una copia de seguridad si tienes una disponible.
 
