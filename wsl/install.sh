@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Descargar y ejecutar constants.sh para definir GITLIB_URL
-source <(curl -s https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/scripts/constants.sh?123)
+source <(curl -s https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/scripts/constants.sh?$RANDOM)
 
 # Obtener el JSON como argumento
 json_input="$1"
@@ -30,8 +30,12 @@ if [ -z "$GITLIB_URL" ]; then
   echo "Error: La variable GITLIB_URL no está definida."
   exit 1
 fi
+echo "Ejecutando script de creación de usuario.../n/r"
 source <(curl -s "${GITLIB_URL}/scripts/common/function_create_user.sh") "$json_input"
-echo "Ejecutando script de creación de usuario..." 
+echo "Finalización creación de usuario.../n/r"
+echo "Ejecutando script de node aws.../n/r"
+source <(curl -s "${GITLIB_URL}/scripts/common/app_node_aws.sh") "$json_input"
+echo "Finalización script node aws.../n/r"
 #example
 #./install.sh "$(jq '.["<host>"]' ../workspace/ms_vms.json)"
 #source ./install.sh "$(jq '.["pr2g-laptop01-w001-win11-wsl-sandbox"]' ${GITLIB_URL}/workspace/ms_vms.json)"

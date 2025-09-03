@@ -19,17 +19,15 @@ personal, study, sandbox, w000, w001, w002, wxxx
 -   sandbox --> levantar aplicaciones temporales
 -   w000 --> aplicaciones personales de proyectos (aplicaciones, pr2g-erp)
 -   wxxx --> ambitos de trabajo (w001, w002, ...)
-    -   w001 work now, typescript aws github jira postman
+    -   w001 work now, typescript aws github jira postman confluence
     -   w002 work NET aws jira confluence postman vscode visual studio
 
 ### SO
 
 -   windows
-
     -   windows11 win11
 
 -   linux
-
     -   ubuntu ubuntu
     -   debian debian
     -   fedora fedora
@@ -42,10 +40,10 @@ personal, study, sandbox, w000, w001, w002, wxxx
 
 ### type virtualization
 
--   vb
--   vbv
--   wsl
--   hyv
+-   vbx: virtual box
+-   vgt: vagrant
+-   wsl: windows subsystem linux
+-   hyv: hyper view
 
 #### host
 
@@ -72,12 +70,15 @@ personal, study, sandbox, w000, w001, w002, wxxx
 
 -   pr2g-laptop01-w001-win11 200
 
-    -   pr2g-laptop01-w001-win11-wsl-w001-apps-ubuntu24
-    -   pr2g-laptop01-w001-win11-wsl-w001-services-ubuntu24
-    -   pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
+    -   pr2g-laptop01-w001-win11-vbx-study-apps-ubuntu24
+    -   pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
+    -   pr2g-laptop01-w001-win11-wsl-services-ubuntu24
+    -   pr2g-laptop01-w001-win11-vbx-study-apps-ubuntu24
+
         ```sh
         wsl -d pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
         ```
+
     -   pr2g-laptop01-w001-win11-wsl-study-services-ubuntu24
     -   pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24
 
@@ -135,89 +136,40 @@ done
 find . -type f -exec dos2unix {} \;
 ```
 
-1.- Creacion de usuario y brindales los permisos de sudo
-2.- Reinstalar el GRUB desde Red Hat (opcional)
-Si prefieres que el GRUB de Red Hat sea el que controle el arranque, puedes reinstalarlo. Para esto:
+- Levantar una maquina virtual
+    -	Junto con:
+	    -	Usuario user
+		-   Software base
+	-   creacion de workspace
+        ```sh
+		mkdir ~/workspace ~/workspace/apps
+		cd ~/workspace && git clone git@github.com:paulgualambo/ms-vms-config.git
+        ```
 
-Monta las particiones adicionales si tienes /boot o /boot/efi separados:
-bash
-Copiar código
-sudo mount /dev/sdXZ /mnt/boot
-sudo mount /dev/sdXW /mnt/boot/efi
-Luego reinstala GRUB en el disco:
+- En el terminal de host
 
-bash
-Copiar código
-sudo grub2-install --root-directory=/mnt /dev/sdX
-(Reemplaza /dev/sdX con el disco donde deseas instalar GRUB, por ejemplo /dev/sda).
+```sh
+#!/bin/bash
+# Este sera ejecutado en gitbash que soporte comandos en Linux
+# --- Configuración ---
+# Define el usuario y la dirección IP aquí
+REMOTE_USER="paul"
+REMOTE_IP="192.168.207.20"
 
-Finalmente, actualiza la configuración de GRUB desde RHEL:
+# --- Conexión y Copia ---
+# Define la dirección de destino para mayor claridad
+REMOTE_TARGET="${REMOTE_USER}@${REMOTE_IP}"
 
-bash
-Copiar código
-sudo chroot /mnt
-grub2-mkconfig -o /boot/grub2/grub.cfg
-Reinicia la laptop. Ahora deberías ver el GRUB de RHEL y poder cargar ambos sistemas operativos.
+echo "🚀 Transfiriendo archivos a ${REMOTE_TARGET}..."
 
-Pasos a seguir:
-Crear un Live USB de RHEL:
+# Copia la llave SSH y el archivo de configuración de npm
+scp -r ~/.ssh/paul* "${REMOTE_TARGET}:/home/${REMOTE_USER}/.ssh/"
+scp ~/.npmrc "${REMOTE_TARGET}:/home/${REMOTE_USER}/.npmrc"
 
-Descarga una imagen ISO de RHEL y crea un Live USB utilizando herramientas como dd o Rufus.
-Arrancar desde el Live USB:
+# --- Permisos ---
+# Ejecuta los comandos para ajustar permisos en el servidor remoto
+echo "🔐 Ajustando permisos en el servidor remoto..."
+ssh "${REMOTE_TARGET}" "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
 
-Inserta el Live USB en tu laptop y arranca desde él seleccionándolo en el menú de arranque de tu BIOS/UEFI.
-Montar las particiones de RHEL:
-
-Abre una terminal en el entorno Live y monta las particiones necesarias de tu instalación de RHEL. Reemplaza /dev/sdXY con la partición correspondiente a RHEL (por ejemplo, /dev/sda2):
-bash
-Copiar código
-sudo mount /dev/sdXY /mnt
-Si tienes particiones separadas para /boot o /boot/efi, móntalas también:
-bash
-Copiar código
-sudo mount /dev/sdXZ /mnt/boot
-sudo mount /dev/sdXW /mnt/boot/efi
-Reinstalar GRUB:
-
-Ejecuta el siguiente comando para reinstalar GRUB en el disco deseado (reemplaza /dev/sdX con tu disco principal, por ejemplo, /dev/sda):
-bash
-Copiar código
-sudo grub2-install --root-directory=/mnt /dev/sdX
-Generar la configuración de GRUB:
-
-Chroot al sistema montado:
-bash
-Copiar código
-sudo chroot /mnt
-Genera la nueva configuración de GRUB:
-bash
-Copiar código
-grub2-mkconfig -o /boot/grub2/grub.cfg
-Sal del entorno chroot:
-bash
-Copiar código
-exit
-Desmontar las particiones y reiniciar:
-
-Desmonta todas las particiones montadas:
-bash
-Copiar código
-sudo umount /mnt/boot/efi
-sudo umount /mnt/boot
-sudo umount /mnt
-Reinicia tu laptop:
-bash
-Copiar código
-sudo reboot
-
-4.- Verificar la Integridad del Kernel
-Si después de seguir los pasos anteriores RHEL aún no arranca correctamente, es posible que el kernel esté dañado. En este caso, considera reinstalar RHEL o restaurar desde una copia de seguridad si tienes una disponible.
-
-Consejos Adicionales:
-Backup de Configuraciones: Antes de realizar cambios significativos en el gestor de arranque, es recomendable hacer una copia de seguridad de las configuraciones actuales de GRUB.
-
-Comprobación de Particiones: Asegúrate de que las particiones de RHEL no hayan sido modificadas o eliminadas accidentalmente.
-
-Actualizaciones del Sistema: Mantén tanto Ubuntu como RHEL actualizados para evitar conflictos y asegurar que ambos sistemas operativos funcionen correctamente con las últimas versiones de GRUB.
-
-Espero que estos pasos te ayuden a resolver el problema con GRUB y a poder arrancar correctamente tanto Ubuntu como RHEL en tu laptop. Si encuentras alguna dificultad durante el proceso, no dudes en proporcionarme más detalles para poder asistirte mejor.
+echo "✅ ¡Proceso completado!"
+```
