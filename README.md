@@ -173,3 +173,10 @@ ssh "${REMOTE_TARGET}" "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
 
 echo "✅ ¡Proceso completado!"
 ```
+
+En el mismo repositorio
+
+```sh
+#!/bin/bash
+#bash <(curl -s https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/wsl/install.sh) '{"hostname":"pr2g-laptop01-w001-win11-wsl-sandbox", "distro":"DEBIAN", "username":"paul", "email":"paul.gualambo@gmail.com", "password":"123456"}'
+```
