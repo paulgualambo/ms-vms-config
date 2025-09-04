@@ -33,7 +33,6 @@ echo "✅ NVM cargado en la sesión actual."
 echo "📦 Instalando la última versión LTS de Node.js..."
 nvm install --lts
 nvm use --lts
-nvm alias default 'lts/*' # Establece la versión LTS como la predeterminada para nuevas terminales
 
 echo "npm: Actualizando a la última versión..."
 npm install npm@latest -g
