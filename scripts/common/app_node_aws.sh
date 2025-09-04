@@ -17,6 +17,16 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 # Cargamos el script de nvm si existe, haciéndolo disponible en este script.
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+
+# 2. ✅ --- LA CORRECCIÓN ES ESTA --- ✅
+#    Carga NVM manualmente en la sesión actual del script.
+#    Esto hace que el comando 'nvm' esté disponible de inmediato.
+export NVM_DIR="$HOME/.nvm"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    . "$NVM_DIR/nvm.sh"
+fi
+
 echo "✅ NVM cargado en la sesión actual."
 
 # --- CONFIGURACIÓN DE NODE.JS USANDO NVM ---
