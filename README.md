@@ -70,6 +70,8 @@ personal, study, sandbox, w000, w001, w002, wxxx
 
 -   pr2g-laptop01-w001-win11 200
 
+    -   pr2g-laptop01-w001-win11-vbx-apps-ubuntu24 - 192.168.207.10
+    -   pr2g-laptop01-w001-win11-vbx-services-ubuntu24
     -   pr2g-laptop01-w001-win11-vbx-study-apps-ubuntu24
     -   pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
     -   pr2g-laptop01-w001-win11-wsl-services-ubuntu24
