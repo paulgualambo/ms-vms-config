@@ -1,89 +1,65 @@
 #!/bin/bash
 
-cd ~
+# --- MODO ESTRICTO ---
+# Terminar el script inmediatamente si un comando falla.
+set -e
 
-#configure node and npm
-# Install nvm
-#https://github.com/nvm-sh/nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+echo "🚀 Iniciando la configuración del entorno de desarrollo..."
 
+# --- INSTALACIÓN DE NVM (NODE VERSION MANAGER) ---
+echo "📦 Instalando NVM..."
+# Descarga y ejecuta el script de instalación de NVM.
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# --- CARGAR NVM EN LA SESIÓN ACTUAL DEL SCRIPT ---
+# ¡Este es el paso clave para evitar el error!
+# Exportamos la variable de entorno que NVM necesita.
 export NVM_DIR="$HOME/.nvm"
+# Cargamos el script de nvm si existe, haciéndolo disponible en este script.
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+echo "✅ NVM cargado en la sesión actual."
 
-# Carga la autocompletación de nvm si está presente
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-nvm --version
-nvm ls-remote
-nvm ls
-nvm run node --version
+# --- CONFIGURACIÓN DE NODE.JS USANDO NVM ---
+echo "📦 Instalando la última versión LTS de Node.js..."
 nvm install --lts
-nvm install-latest-npm
-nvm cache clear
+nvm use --lts
+nvm alias default 'lts/*' # Establece la versión LTS como la predeterminada para nuevas terminales
 
-# create .nvmrc
-# echo "lts/*" > .nvmrc # to default to the latest LTS version
-
+echo "npm: Actualizando a la última versión..."
 npm install npm@latest -g
+
+echo "🔍 Verificación de versiones de Node y NPM:"
 node -v
 npm -v
 
-# Install typescript
-# Install TS globally on my machine
-# npm i -D -g typescript@latest
-# npm i -D -g @types/node ts-node@latest
-# # Check version
-# tsc -v
+# --- ACTUALIZACIÓN DE PAQUETES E INSTALACIÓN DE DEPENDENCIAS ---
+echo "🔧 Actualizando la lista de paquetes del sistema..."
+sudo apt-get update
+sudo apt-get install -y curl unzip # Instala dependencias necesarias
 
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo dnf-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/dnf/sources.list.d/yarn.list
-sudo apt update
-sudo apt install yarn -y
+# --- INSTALACIÓN DE YARN ---
+# Corregido para usar el método recomendado para sistemas basados en APT.
+echo "📦 Instalando Yarn..."
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update
+sudo apt-get install -y yarn
+echo "🔍 Verificación de versión de Yarn:"
 yarn --version
 
-#AWS
-#!/bin/bash
-
-# --- Script para instalar AWS CLI v2 en sistemas Debian/Ubuntu ---
-
-# 1. Terminar el script inmediatamente si un comando falla (modo estricto).
-set -e
-
-# 2. Verificar si AWS CLI ya está instalado para no reinstalar.
+# --- INSTALACIÓN DE AWS CLI V2 ---
 if command -v aws &> /dev/null; then
-    echo "✅ AWS CLI ya está instalado. Versión actual:"
-    aws --version
-    exit 0
+    echo "✅ AWS CLI ya está instalado."
+else
+    echo "📦 Instalando AWS CLI v2..."
+    TEMP_DIR=$(mktemp -d)
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${TEMP_DIR}/awscliv2.zip"
+    unzip "${TEMP_DIR}/awscliv2.zip" -d "${TEMP_DIR}"
+    sudo "${TEMP_DIR}/aws/install"
+    rm -rf "${TEMP_DIR}"
+    echo "✅ AWS CLI instalado con éxito."
 fi
-
-echo "🚀 Iniciando la instalación de AWS CLI v2..."
-
-# 3. Crear un directorio temporal seguro para los archivos de instalación.
-# Esto asegura que todos los archivos descargados estén aislados y se puedan limpiar fácilmente.
-TEMP_DIR=$(mktemp -d)
-echo "📂 Usando directorio temporal: ${TEMP_DIR}"
-
-# 4. Actualizar la lista de paquetes e instalar 'unzip' si es necesario.
-echo "🔧 Actualizando paquetes e instalando 'unzip'..."
-sudo apt-get update
-sudo apt-get install -y unzip curl
-
-# 5. Descargar, descomprimir e instalar dentro del directorio temporal.
-echo "📥 Descargando el instalador de AWS CLI..."
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${TEMP_DIR}/awscliv2.zip"
-
-echo "📦 Descomprimiendo el archivo..."
-unzip "${TEMP_DIR}/awscliv2.zip" -d "${TEMP_DIR}"
-
-echo "⚙️ Ejecutando el instalador..."
-sudo "${TEMP_DIR}/aws/install"
-
-# 6. Limpiar el directorio temporal y su contenido.
-echo "🧹 Limpiando archivos de instalación..."
-rm -rf "${TEMP_DIR}"
-
-# 7. Verificar la instalación y mostrar la versión.
-echo "🔍 Verificación final:"
+echo "🔍 Verificación de versión de AWS CLI:"
 aws --version
 
-echo "✅ ¡Instalación de AWS CLI completada con éxito!"
+echo "🎉 ¡Configuración completada!"
