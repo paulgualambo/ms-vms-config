@@ -31,11 +31,11 @@ if [ -z "$GITLIB_URL" ]; then
   exit 1
 fi
 echo "Ejecutando script de creación de usuario.../n/r"
-source <(curl -s "${GITLIB_URL}/scripts/common/function_create_user.sh") "$json_input"
+source <(curl -s "${GITLIB_URL}/scripts/common/function_create_user.sh?$RANDOM") "$json_input"
 echo "Finalización creación de usuario.../n/r"
 
 echo "Ejecutando script de node aws.../n/r"
-source <(curl -s "${GITLIB_URL}/scripts/common/app_node_aws.sh") "$json_input"
+source <(curl -s "${GITLIB_URL}/scripts/common/app_node_aws.sh?$RANDOM") "$json_input"
 echo "Finalización script node aws.../n/r"
 
 #example
