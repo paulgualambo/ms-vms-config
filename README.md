@@ -139,6 +139,26 @@ find . -type f -exec dos2unix {} \;
 ```
 
 - Levantar una maquina virtual
+    - Ingresar por ssh
+    ```sh
+         #!/bin/bash
+
+        # Verifica si se proporcionó un nombre de host o IP como argumento
+        if [ -z "$1" ]; then
+        echo "Uso: $0 <hostname_o_ip>"
+        exit 1
+        fi
+
+        # Guarda el argumento en una variable para mayor claridad
+        HOST_A_ELIMINAR=$1
+
+        echo "🔑 Eliminando la clave SSH para el anfitrión: $HOST_A_ELIMINAR..."
+
+        # Ejecuta el comando para remover la clave del known_hosts
+        ssh-keygen -R "$HOST_A_ELIMINAR"
+
+        echo "✅ ¡Listo! La clave ha sido eliminada. Ya puedes conectarte de nuevo."
+    ```
     -	Junto con:
 	    -	Usuario user
 		-   Software base
@@ -151,6 +171,7 @@ find . -type f -exec dos2unix {} \;
 - En el terminal de host
 
 ```sh
+
 #!/bin/bash
 # Este sera ejecutado en gitbash que soporte comandos en Linux
 # --- Configuración ---
@@ -174,6 +195,8 @@ echo "🔐 Ajustando permisos en el servidor remoto..."
 ssh "${REMOTE_TARGET}" "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
 
 echo "✅ ¡Proceso completado!"
+
+ssh-copy-id -i ~/.ssh/${REMOTE_USER}-me-id-key_ed25519.pub ${REMOTE_TARGET}
 ```
 
 En el mismo repositorio

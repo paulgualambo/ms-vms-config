@@ -44,13 +44,13 @@ Name servers: Los servidores DNS. Para esta interfaz de Host-Only, no son estric
 Coloca (opcional, si es requerido o deseas un respaldo): 8.8.8.8 (Es un DNS público de Google)
 Search domains: Puedes dejar esto en blanco.
 
-configure 
+configure
 .ssh
 copiar el ssh del host hacia la maquina virtual
 
 En windows con gitbash
 
-ssh-copy-id -i ~/.ssh/paul-w001-id-key_ed25519.pub paul@192.168.207.10
+ssh-copy-id -i ~/.ssh/paul-me-id-key_ed25519.pub paul@192.168.207.10
 
 scp -r ~/.ssh paul@192.168.207.10:/home/paul/.ssh
 scp -r ~/.npmrc paul@192.168.207.10:/home/paul/.npmrc
