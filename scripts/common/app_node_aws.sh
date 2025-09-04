@@ -32,7 +32,7 @@ echo "✅ NVM cargado en la sesión actual."
 # --- CONFIGURACIÓN DE NODE.JS USANDO NVM ---
 echo "📦 Instalando la última versión LTS de Node.js..."
 nvm install --lts
-nvm use --lts
+#nvm use --lts
 
 echo "npm: Actualizando a la última versión..."
 npm install npm@latest -g
