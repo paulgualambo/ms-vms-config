@@ -109,8 +109,6 @@ install_packages() {
     # 1. Lista de paquetes comunes a TODAS las distribuciones
     local packages=(
         curl
-        net-tools
-        rsync
         ca-certificates
         unzip
         jq
