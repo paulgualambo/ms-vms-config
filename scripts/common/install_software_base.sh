@@ -109,14 +109,12 @@ install_packages() {
     # 1. Lista de paquetes comunes a TODAS las distribuciones
     local packages=(
         curl
-        bash
         git
         net-tools
         rsync
         ca-certificates
         unzip
         jq
-        bash-completion
     )
 
     # 2. Añadir paquetes específicos para cada gestor de paquetes
