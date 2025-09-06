@@ -206,10 +206,6 @@ fi
 # --- Configuración de Starship Prompt ---
 eval "\$(starship init bash)"
 
-# --- Configuración del Agente SSH ---
-if ! pgrep -u "${user_to_configure}" ssh-agent > /dev/null; then
-    eval "\$(ssh-agent -s)"
-fi
 EOF
     if ! command -v starship &>/dev/null; then
         log_info "Instalando Starship..."; curl -sS https://starship.rs/install.sh | sudo sh -s -- --yes
