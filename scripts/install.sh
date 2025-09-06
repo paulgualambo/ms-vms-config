@@ -30,13 +30,17 @@ if [ -z "$GITLIB_URL" ]; then
   echo "Error: La variable GITLIB_URL no está definida."
   exit 1
 fi
-echo "Ejecutando script de creación de usuario.../n/r"
+echo "Ejecutando script de creación de usuario...\n\r"
 source <(curl -s "${GITLIB_URL}/scripts/common/function_create_user.sh?${RANDOM}") "$json_input"
-echo "Finalización creación de usuario.../n/r"
+echo "Finalización creación de usuario...\n\r"
 
-echo "Ejecutando script de node aws.../n/r"
+echo "Ejecutando script de install software base...\n\r"
+source <(curl -s "${GITLIB_URL}/scripts/common/install_software_base.sh?${RANDOM}") "$json_input"
+echo "Finalización script de install software base...\n\r"
+
+echo "Ejecutando script de node aws...\n\r"
 source <(curl -s "${GITLIB_URL}/scripts/common/app_node_aws.sh?${RANDOM}") "$json_input"
-echo "Finalización script node aws.../n/r"
+echo "Finalización script node aws...\n\r"
 
 #example
 #./install.sh "$(jq '.["<host>"]' ../workspace/ms_vms.json)"

@@ -142,13 +142,6 @@ find . -type f -exec dos2unix {} \;
     - Ingresar por ssh
     ```sh
          #!/bin/bash
-
-        # Verifica si se proporcionó un nombre de host o IP como argumento
-        if [ -z "$1" ]; then
-        echo "Uso: $0 <hostname_o_ip>"
-        exit 1
-        fi
-
         # Guarda el argumento en una variable para mayor claridad
         HOST_A_ELIMINAR=$1
 
@@ -159,6 +152,36 @@ find . -type f -exec dos2unix {} \;
 
         echo "✅ ¡Listo! La clave ha sido eliminada. Ya puedes conectarte de nuevo."
     ```
+
+    ```sh
+
+    #!/bin/bash
+    # Este sera ejecutado en gitbash que soporte comandos en Linux
+    # --- Configuración ---
+    # Define el usuario y la dirección IP aquí
+    REMOTE_USER="paul"
+    REMOTE_IP="192.168.207.20"
+
+    # --- Conexión y Copia ---
+    # Define la dirección de destino para mayor claridad
+    REMOTE_TARGET="${REMOTE_USER}@${REMOTE_IP}"
+
+    echo "🚀 Transfiriendo archivos a ${REMOTE_TARGET}..."
+
+    # Copia la llave SSH y el archivo de configuración de npm
+    scp -r ~/.ssh/paul* "${REMOTE_TARGET}:/home/${REMOTE_USER}/.ssh/"
+    scp ~/.npmrc "${REMOTE_TARGET}:/home/${REMOTE_USER}/.npmrc"
+
+    # --- Permisos ---
+    # Ejecuta los comandos para ajustar permisos en el servidor remoto
+    echo "🔐 Ajustando permisos en el servidor remoto..."
+    ssh "${REMOTE_TARGET}" "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
+
+    echo "✅ ¡Proceso completado!"
+
+    ssh-copy-id -i ~/.ssh/${REMOTE_USER}-me-id-key_ed25519.pub ${REMOTE_TARGET}
+    ```
+
     -	Junto con:
 	    -	Usuario user
 		-   Software base
@@ -166,38 +189,13 @@ find . -type f -exec dos2unix {} \;
         ```sh
 		mkdir ~/workspace ~/workspace/apps
 		cd ~/workspace && git clone git@github.com:paulgualambo/ms-vms-config.git
+
+        bash <(curl -s "https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/scripts/install.sh?$RANDOM") '{"hostname":"pr2g-laptop01-w001-win11-vbx-apps-ubuntu24", "distro":"DEBIAN", "username":"paul", "email":"paul.gualambo@gmail.com", "password":"123456"}'
         ```
 
 - En el terminal de host
 
-```sh
 
-#!/bin/bash
-# Este sera ejecutado en gitbash que soporte comandos en Linux
-# --- Configuración ---
-# Define el usuario y la dirección IP aquí
-REMOTE_USER="paul"
-REMOTE_IP="192.168.207.20"
-
-# --- Conexión y Copia ---
-# Define la dirección de destino para mayor claridad
-REMOTE_TARGET="${REMOTE_USER}@${REMOTE_IP}"
-
-echo "🚀 Transfiriendo archivos a ${REMOTE_TARGET}..."
-
-# Copia la llave SSH y el archivo de configuración de npm
-scp -r ~/.ssh/paul* "${REMOTE_TARGET}:/home/${REMOTE_USER}/.ssh/"
-scp ~/.npmrc "${REMOTE_TARGET}:/home/${REMOTE_USER}/.npmrc"
-
-# --- Permisos ---
-# Ejecuta los comandos para ajustar permisos en el servidor remoto
-echo "🔐 Ajustando permisos en el servidor remoto..."
-ssh "${REMOTE_TARGET}" "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
-
-echo "✅ ¡Proceso completado!"
-
-ssh-copy-id -i ~/.ssh/${REMOTE_USER}-me-id-key_ed25519.pub ${REMOTE_TARGET}
-```
 
 En el mismo repositorio
 
