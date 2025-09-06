@@ -36,10 +36,7 @@ main() {
     # 2. Detectar el gestor de paquetes
     detect_package_manager
 
-    # 3. Instalar paquetes básicos (incluyendo jq, necesario para el siguiente paso)
-    install_packages
-
-    # 4. Procesar el argumento JSON de entrada
+    # 3. Verificar dependencias necesarias    # 4. Procesar el argumento JSON de entrada
     local json_input="${1-}"
     if [[ -z "${json_input}" ]]; then
         log_error "Por favor, proporciona la configuración en formato JSON como primer argumento."
@@ -97,52 +94,6 @@ ensure_user_exists() {
     else
         log_info "El usuario '${user_to_check}' ya existe."
     fi
-}
-
-# --- INSTALACIÓN DE PAQUETES ---
-install_packages() {
-    log_info "Actualizando el índice de paquetes..."
-    eval "${PKG_UPDATE_CMD}"
-
-    log_info "Instalando paquetes básicos y de desarrollo..."
-
-    # 1. Lista de paquetes comunes a TODAS las distribuciones
-    local packages=(
-        curl
-        unzip
-        jq
-    )
-
-    # 2. Añadir paquetes específicos para cada gestor de paquetes
-    case "${PKG_MANAGER}" in
-        "apt-get")
-            packages+=(
-                apt-transport-https
-                software-properties-common
-            )
-            ;;
-        "dnf")
-            # Fedora/CentOS usualmente no necesita equivalentes directos
-            # o ya los incluye. Podemos añadir paquetes específicos aquí si es necesario.
-            # Por ejemplo: 'dnf-utils' podría ser un análogo.
-            packages+=(
-                'dnf-plugins-core'
-            )
-            ;;
-        "zypper")
-            # openSUSE
-            # No se necesitan paquetes adicionales de esta lista.
-            ;;
-        "pacman")
-            # Arch Linux
-            # No se necesitan paquetes adicionales de esta lista.
-            ;;
-    esac
-
-    log_info "Paquetes a instalar: ${packages[*]}"
-    eval "${PKG_INSTALL_CMD} ${packages[*]}"
-
-    log_success "Paquetes básicos, Git, jq y dependencias instalados."
 }
 
 # --- CONFIGURACIÓN DE ZONA HORARIA ---
