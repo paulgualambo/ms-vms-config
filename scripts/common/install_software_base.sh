@@ -105,19 +105,49 @@ install_packages() {
     eval "${PKG_UPDATE_CMD}"
 
     log_info "Instalando paquetes básicos y de desarrollo..."
-    # --- MODIFICACIÓN: Se añadió 'jq' a la lista ---
+
+    # 1. Lista de paquetes comunes a TODAS las distribuciones
     local packages=(
-        curl bash git net-tools rsync ca-certificates unzip jq
-        apt-transport-https software-properties-common
+        curl
+        bash
+        git
+        net-tools
+        rsync
+        ca-certificates
+        unzip
+        jq
         bash-completion
     )
 
-    # (Lógica para filtrar paquetes no cambia)
-    if [[ "${PKG_MANAGER}" == "dnf" ]]; then
-        packages=("${packages[@]/apt-transport-https}")
-    fi
+    # 2. Añadir paquetes específicos para cada gestor de paquetes
+    case "${PKG_MANAGER}" in
+        "apt-get")
+            packages+=(
+                apt-transport-https
+                software-properties-common
+            )
+            ;;
+        "dnf")
+            # Fedora/CentOS usualmente no necesita equivalentes directos
+            # o ya los incluye. Podemos añadir paquetes específicos aquí si es necesario.
+            # Por ejemplo: 'dnf-utils' podría ser un análogo.
+            packages+=(
+                'dnf-plugins-core'
+            )
+            ;;
+        "zypper")
+            # openSUSE
+            # No se necesitan paquetes adicionales de esta lista.
+            ;;
+        "pacman")
+            # Arch Linux
+            # No se necesitan paquetes adicionales de esta lista.
+            ;;
+    esac
 
+    log_info "Paquetes a instalar: ${packages[*]}"
     eval "${PKG_INSTALL_CMD} ${packages[*]}"
+
     log_success "Paquetes básicos, Git, jq y dependencias instalados."
 }
 
