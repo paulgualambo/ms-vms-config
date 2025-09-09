@@ -69,20 +69,17 @@ personal, study, sandbox, w000, w001, w002, wxxx
     -   pr2g-laptop01-personal-win11-wsl-services-ubuntu24
 
 -   pr2g-laptop01-w001-win11 200
-    -   vbx [192.168.100.1]
-    -   [W001-APP] [192.168.100.101] pr2g-laptop01-w001-win11-vbx-apps-ubuntu24
-    -   pr2g-laptop01-w001-win11-vbx-services-ubuntu24
-    -   pr2g-laptop01-w001-win11-vbx-study-apps-ubuntu24
-    -   pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
-    -   pr2g-laptop01-w001-win11-wsl-services-ubuntu24
-    -   pr2g-laptop01-w001-win11-vbx-study-apps-ubuntu24
 
-        ```sh
-        wsl -d pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
-        ```
+    -   Create Ethernet Adapter vbx [192.168.100.1]
+    -   [W001-APPS] [192.168.100.101] pr2g-laptop01-w001-win11-vbx-apps-ubuntu24
+    -   [W001-SERVICES] [192.168.100.102] pr2g-laptop01-w001-win11-vbx-services-ubuntu24
+    -   [W001-STUDY] [192.168.100.20] pr2g-laptop01-w001-win11-vbx-study-apps-ubuntu24
+    -   [W001-SERVICES] [192.168.100.21] pr2g-laptop01-w001-win11-vbx-study-services-ubuntu24
+    -   [W001-SNAPSHOT] [192.168.100.200] pr2g-laptop01-w001-win11-vbx-snapshot-ubuntu24
 
-    -   pr2g-laptop01-w001-win11-wsl-study-services-ubuntu24
-    -   pr2g-laptop01-w001-win11-wsl-sandbox-ubuntu24
+    ```sh
+    wsl -d pr2g-laptop01-w001-win11-wsl-study-apps-ubuntu24
+    ```
 
 -   p2rg-laptop01-study-win11 200 (disk01)
 
@@ -107,6 +104,11 @@ personal, study, sandbox, w000, w001, w002, wxxx
     -   pr2g-laptop01-personal-fedora-vgt-study-apps-ubuntu24
     -   pr2g-laptop01-personal-fedora-vgt-study-services-ubuntu24
 
+
+## Instalacion
+
+Para continuar con el proceso, consulta las instrucciones en el archivo [INSTALL.md](./INSTALL.md).
+
 ```sh
 git config user.email paul.gualambo@gmail.com
 git config user.name 'Paul Romualdo Gualambo Giraldo'
@@ -127,30 +129,20 @@ ssh-keygen -t ed25519 -C "[paulgualambo.w001]@[w001.domain] - w001 - [name - w00
 ssh-keygen -t ed25519 -C "[paulgualambo.wxxx]@[wxxx-domain] - wxxx - [name - wxxx]" -f 'c:/Users/paul/.ssh/pr2g-[nodo]-wxxx-id-key_ed25519'
 ```
 
-```sh
-#Convertir todos los archivos a formato Unix
-sudo apt install dos2unix
-for file in *; do
-    if [ -f "$file" ]; then
-        dos2unix "$file"
-    fi
-done
-find . -type f -exec dos2unix {} \;
-```
 
 - Levantar una maquina virtual
+
+    ```sh
+    # clean
+    REMOTE_IP="192.168.100.101"
+    ssh-keygen -R "$REMOTE_IP"
+    ```
     - Ingresar por ssh
     ```sh
-         #!/bin/bash
-        # Guarda el argumento en una variable para mayor claridad
-        HOST_A_ELIMINAR=$1
+		mkdir ~/workspace ~/workspace/apps
+		cd ~/workspace
 
-        echo "🔑 Eliminando la clave SSH para el anfitrión: $HOST_A_ELIMINAR..."
-
-        # Ejecuta el comando para remover la clave del known_hosts
-        ssh-keygen -R "$HOST_A_ELIMINAR"
-
-        echo "✅ ¡Listo! La clave ha sido eliminada. Ya puedes conectarte de nuevo."
+        bash <(curl -s "https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/scripts/install.sh?$RANDOM") '{"hostname":"pr2g-laptop01-w001-win11-vbx-apps-ubuntu24", "distro":"DEBIAN", "username":"paul", "email":"paul.gualambo@gmail.com", "password":"123456"}'
     ```
 
     ```sh
@@ -160,7 +152,7 @@ find . -type f -exec dos2unix {} \;
     # --- Configuración ---
     # Define el usuario y la dirección IP aquí
     REMOTE_USER="paul"
-    REMOTE_IP="192.168.207.20"
+    REMOTE_IP="192.168.100.101"
 
     # --- Conexión y Copia ---
     # Define la dirección de destino para mayor claridad
@@ -179,13 +171,13 @@ find . -type f -exec dos2unix {} \;
 
     echo "✅ ¡Proceso completado!"
     ssh-keygen -R "$REMOTE_IP"
-    ssh-copy-id -i -f ~/.ssh/${REMOTE_USER}-me-id-key_ed25519.pub ${REMOTE_TARGET}
+    ssh-copy-id -i ~/.ssh/${REMOTE_USER}-me-id-key_ed25519.pub ${REMOTE_TARGET}
     ssh "${REMOTE_TARGET}" "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
     ```
     - No olvidar ajustar en el archivo de host anfitrión
 
     ```sh
-        # ~/.ssh/config
+        # code ~/.ssh/config
         Host 192.168.207.10
         HostName 192.168.207.10
         User paul
@@ -197,21 +189,5 @@ find . -type f -exec dos2unix {} \;
     -	Junto con:
 	    -	Usuario user
 		-   Software base
-	-   creacion de workspace
-        ```sh
-		mkdir ~/workspace ~/workspace/apps
-		cd ~/workspace && git clone git@github.com:paulgualambo/ms-vms-config.git
-
-        bash <(curl -s "https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/scripts/install.sh?$RANDOM") '{"hostname":"pr2g-laptop01-w001-win11-vbx-apps-ubuntu24", "distro":"DEBIAN", "username":"paul", "email":"paul.gualambo@gmail.com", "password":"123456"}'
-        ```
 
 - En el terminal de host
-
-
-
-En el mismo repositorio
-
-```sh
-#!/bin/bash
-#bash <(curl -s "https://raw.githubusercontent.com/paulgualambo/ms-vms-config/refs/heads/main/scripts/install.sh?$RANDOM") '{"hostname":"pr2g-laptop01-w001-win11-wsl-sandbox", "distro":"DEBIAN", "username":"paul", "email":"paul.gualambo@gmail.com", "password":"123456"}'
-```

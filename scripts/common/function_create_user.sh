@@ -58,6 +58,29 @@ run_user_creation() {
     | bash -s -- "$distro" "$user" "$email" "$pass"
 }
 
+### Configuración de SSH
+configure_ssh() {
+  log_info "Instalando y configurando el servidor SSH para acceso con clave..."
+
+  # 1. Instalar el paquete del SERVIDOR SSH
+  sudo apt install openssh-server -y
+
+  # 2. Modificar la configuración para mayor seguridad
+  # Habilita la autenticación con clave pública (indispensable)
+  sudo sed -i 's/^#*PubkeyAuthentication .*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+
+  # DESHABILITA la autenticación con contraseña (el cambio clave)
+  sudo sed -i 's/^#*PasswordAuthentication .*/PasswordAuthentication no/' /etc/ssh/sshd_config
+
+  # Asegura que el servidor escuche en todas las interfaces
+  sudo sed -i 's/^#*ListenAddress .*/ListenAddress 0.0.0.0/' /etc/ssh/sshd_config
+
+  # 3. Reiniciar el servicio para aplicar los cambios
+  sudo systemctl restart ssh.service
+
+  log_info "Configuración de SSH completada. El acceso con contraseña está deshabilitado."
+}
+
 ### Main flow
 main() {
   validate_args "$@"
@@ -66,6 +89,8 @@ main() {
 
   log_info "Usuario: $USERNAME"
   run_user_creation "$DISTRO" "$USERNAME" "$EMAIL" "$PASSWORD"
+  #Puedes invocar la función configure_ssh() si es necesario
+  configure_ssh
 }
 
 main "$@"

@@ -56,19 +56,4 @@ sudo apt-get install -y yarn
 echo "🔍 Verificación de versión de Yarn:"
 yarn --version
 
-# --- INSTALACIÓN DE AWS CLI V2 ---
-if command -v aws &> /dev/null; then
-    echo "✅ AWS CLI ya está instalado."
-else
-    echo "📦 Instalando AWS CLI v2..."
-    TEMP_DIR=$(mktemp -d)
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${TEMP_DIR}/awscliv2.zip"
-    unzip "${TEMP_DIR}/awscliv2.zip" -d "${TEMP_DIR}"
-    sudo "${TEMP_DIR}/aws/install"
-    rm -rf "${TEMP_DIR}"
-    echo "✅ AWS CLI instalado con éxito."
-fi
-echo "🔍 Verificación de versión de AWS CLI:"
-aws --version
-
 echo "🎉 ¡Configuración completada!"
