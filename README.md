@@ -69,8 +69,8 @@ personal, study, sandbox, w000, w001, w002, wxxx
     -   pr2g-laptop01-personal-win11-wsl-services-ubuntu24
 
 -   pr2g-laptop01-w001-win11 200
-
-    -   pr2g-laptop01-w001-win11-vbx-apps-ubuntu24 - 192.168.207.10
+    -   vbx [192.168.100.1]
+    -   [W001-APP] [192.168.100.101] pr2g-laptop01-w001-win11-vbx-apps-ubuntu24
     -   pr2g-laptop01-w001-win11-vbx-services-ubuntu24
     -   pr2g-laptop01-w001-win11-vbx-study-apps-ubuntu24
     -   pr2g-laptop01-w001-win11-wsl-apps-ubuntu24
@@ -178,9 +178,21 @@ find . -type f -exec dos2unix {} \;
     ssh "${REMOTE_TARGET}" "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
 
     echo "✅ ¡Proceso completado!"
-
-    ssh-copy-id -i ~/.ssh/${REMOTE_USER}-me-id-key_ed25519.pub ${REMOTE_TARGET}
+    ssh-keygen -R "$REMOTE_IP"
+    ssh-copy-id -i -f ~/.ssh/${REMOTE_USER}-me-id-key_ed25519.pub ${REMOTE_TARGET}
+    ssh "${REMOTE_TARGET}" "chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
     ```
+    - No olvidar ajustar en el archivo de host anfitrión
+
+    ```sh
+        # ~/.ssh/config
+        Host 192.168.207.10
+        HostName 192.168.207.10
+        User paul
+        ForwardAgent yes
+        IdentityFile ~/.ssh/paul-me-id-key_ed25519
+    ```
+
 
     -	Junto con:
 	    -	Usuario user

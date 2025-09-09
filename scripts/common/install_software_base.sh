@@ -57,6 +57,7 @@ main() {
 
     # 5. Continuar con el resto de la configuración usando las variables del JSON
     ensure_user_exists "${username}"
+    install_zip_unzip
     configure_timezone
     install_docker "${username}"
     install_aws_cli
@@ -134,6 +135,17 @@ install_aws_cli() {
         log_success "AWS CLI v2 instalado correctamente. Versión: $(aws --version)"
     else
         log_error "La instalación de AWS CLI v2 falló."
+    fi
+}
+
+# --- INSTALACIÓN DE ZIP Y UNZIP ---
+install_zip_unzip() {
+    if command -v zip &>/dev/null && command -v unzip &>/dev/null; then
+        log_info "zip y unzip ya están instalados."
+    else
+        log_info "Instalando zip y unzip..."
+        eval "${PKG_INSTALL_CMD} zip unzip"
+        log_success "zip y unzip instalados correctamente."
     fi
 }
 
